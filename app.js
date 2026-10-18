@@ -1,4 +1,4 @@
-/* Exploradores de números · prototipo didáctico original · v1.0
+/* Exploradores de números · prototipo didáctico original · v1.1
    HTML/CSS/JavaScript sin librerías ni llamadas de red.
    Los resultados se guardan únicamente en localStorage del navegador. */
 (() => {
