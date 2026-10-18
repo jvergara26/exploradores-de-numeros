@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1700" height="1165" viewBox="0 0 1700 1165">
+<title>Mapa conceptual: solución educativa RED Exploradores de números</title>
+<desc>Mapa conceptual jerárquico con quince conceptos, palabras de enlace y dos relaciones cruzadas. Los elementos de texto, recuadros y conectores permanecen editables.</desc>
+<defs><marker id="arrowMain" viewBox="0 0 10 10" refX="8.8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#748D94"/></marker><marker id="arrowBronze" viewBox="0 0 10 10" refX="8.8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#A57846"/></marker></defs>
+<rect width="1700" height="1165" fill="#FBFBF8"/>
+<text x="63" y="60" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="19" font-weight="700" text-anchor="start" letter-spacing="2.2">PROPUESTA DE SOLUCIÓN EDUCATIVA</text>
+<text x="63" y="102" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="31" font-weight="600" text-anchor="start" >¿Cómo se articula el RED para favorecer el aprendizaje de múltiplos y divisores en sexto?</text>
+<line x1="60" x2="1640" y1="132" y2="132" stroke="#CCD6D6" stroke-width="1.5"/>
+<path d="M 625,244 H 505" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 1075,244 H 1195" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,295 V 339 H 280 V 390" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,339 V 390" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,339 H 1420 V 390" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 280,478 V 552" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 280,656 V 764" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 280,868 V 966" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,478 V 552" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,656 V 764" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 850,868 V 966" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 1420,478 V 552" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 1420,656 V 764" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 1420,868 V 966" fill="none" stroke="#748D94" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"  marker-end="url(#arrowMain)"/>
+<path d="M 505,816 H 625" fill="none" stroke="#A57846" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 7" marker-end="url(#arrowBronze)"/>
+<path d="M 1075,816 H 1195" fill="none" stroke="#A57846" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 7" marker-end="url(#arrowBronze)"/>
+<g id="red">
+<rect x="625" y="195" width="450" height="100" rx="14" fill="#235761" stroke="#235761" stroke-width="2" />
+<text x="850.0" y="242" fill="#FFFFFF" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="34" font-weight="700" text-anchor="middle" >RED «Exploradores</text>
+<text x="850.0" y="280" fill="#FFFFFF" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="34" font-weight="700" text-anchor="middle" >de números»</text>
+</g>
+<g id="contexto">
+<rect x="55" y="202" width="450" height="84" rx="12" fill="#F4F6F4" stroke="#9AAEB2" stroke-width="1.5" />
+<text x="280.0" y="253.0" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="24" font-weight="600" text-anchor="middle" >Grado 6.º · grupos 6-1 y 6-2</text>
+</g>
+<g id="addie">
+<rect x="1195" y="202" width="450" height="84" rx="12" fill="#F4F6F4" stroke="#9AAEB2" stroke-width="1.5" />
+<text x="1420.0" y="253.0" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="24" font-weight="600" text-anchor="middle" >Modelo ADDIE</text>
+</g>
+<g id="necesidad">
+<rect x="55" y="390" width="450" height="88" rx="12" fill="#EDF3F3" stroke="#9AB1B4" stroke-width="1.65" />
+<rect x="55" y="390" width="8" height="88" rx="4" fill="#235761"/>
+<text x="280.0" y="440.0" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="29" font-weight="700" text-anchor="middle" >Necesidad educativa</text>
+</g>
+<g id="secuencia">
+<rect x="625" y="390" width="450" height="88" rx="12" fill="#EDF3F3" stroke="#9AB1B4" stroke-width="1.65" />
+<rect x="625" y="390" width="8" height="88" rx="4" fill="#235761"/>
+<text x="850.0" y="440.0" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="29" font-weight="700" text-anchor="middle" >Secuencia didáctica</text>
+</g>
+<g id="evaluacion">
+<rect x="1195" y="390" width="450" height="88" rx="12" fill="#EDF3F3" stroke="#9AB1B4" stroke-width="1.65" />
+<rect x="1195" y="390" width="8" height="88" rx="4" fill="#235761"/>
+<text x="1420.0" y="440.0" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="29" font-weight="700" text-anchor="middle" >Evaluación formativa</text>
+</g>
+<g id="hipotesis">
+<rect x="55" y="552" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="280.0" y="611" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Hipótesis por contrastar</text>
+</g>
+<g id="diagnostico">
+<rect x="55" y="764" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="280.0" y="823" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Diagnóstico inicial</text>
+</g>
+<g id="saberes">
+<rect x="55" y="966" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="280.0" y="1025" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Saberes previos</text>
+</g>
+<g id="misiones">
+<rect x="625" y="552" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="850.0" y="611" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Cuatro misiones</text>
+</g>
+<g id="retos">
+<rect x="625" y="764" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="850.0" y="823" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Retos contextualizados</text>
+</g>
+<g id="contenidos">
+<rect x="625" y="966" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="850.0" y="1011" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Múltiplos, divisores y</text>
+<text x="850.0" y="1040" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >criterios de divisibilidad</text>
+</g>
+<g id="evidencias">
+<rect x="1195" y="552" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="1420.0" y="611" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Evidencias del progreso</text>
+</g>
+<g id="reporte">
+<rect x="1195" y="764" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="1420.0" y="823" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Reporte descargable</text>
+</g>
+<g id="revision">
+<rect x="1195" y="966" width="450" height="104" rx="12" fill="#FFFFFF" stroke="#9AAEB2" stroke-width="1.65" />
+<text x="1420.0" y="1011" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >Revisión docente de</text>
+<text x="1420.0" y="1040" fill="#1C3440" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="27" font-weight="500" text-anchor="middle" >explicaciones abiertas</text>
+</g>
+<rect x="509.5" y="180" width="113" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="566" y="204" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se dirige a</text>
+<rect x="1060.0" y="180" width="150" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1135" y="204" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se diseña con</text>
+<rect x="216.0" y="340" width="128" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="280" y="364" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >responde a</text>
+<rect x="794.0" y="340" width="112" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="850" y="364" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >organiza</text>
+<rect x="1356.0" y="340" width="128" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1420" y="364" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >integra</text>
+<rect x="194.0" y="494" width="172" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="280" y="518" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se plantea como</text>
+<rect x="187.5" y="685" width="185" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="280" y="709" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se contrasta con</text>
+<rect x="211.0" y="897" width="138" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="280" y="921" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >explora</text>
+<rect x="774.5" y="494" width="151" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="850" y="518" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se organiza en</text>
+<rect x="787.0" y="685" width="126" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="850" y="709" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >incorporan</text>
+<rect x="781.0" y="897" width="138" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="850" y="921" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >abordan</text>
+<rect x="1344.5" y="494" width="151" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1420" y="518" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >recoge</text>
+<rect x="1327.5" y="685" width="185" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1420" y="709" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >se presentan en</text>
+<rect x="1351.0" y="897" width="138" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1420" y="921" fill="#235761" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >requiere</text>
+<rect x="509.5" y="760" width="111" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="565" y="784" fill="#A57846" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >precede a</text>
+<rect x="1075.5" y="760" width="119" height="35" rx="7" fill="#FFFFFF" stroke="#DAE1E0" stroke-width="1" />
+<text x="1135" y="784" fill="#A57846" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="20" font-weight="500" text-anchor="middle" >aportan al</text>
+<line x1="60" x2="1640" y1="1110" y2="1110" stroke="#CCD6D6" stroke-width="1.5"/>
+<text x="62" y="1143" fill="#5C6C74" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="19" font-weight="400" text-anchor="start" >Lectura: concepto → palabra de enlace → concepto. Las líneas punteadas representan relaciones cruzadas.</text>
+<text x="1638" y="1143" fill="#5C6C74" font-family="'Liberation Sans', 'Arial', sans-serif" font-size="18" font-weight="400" text-anchor="end" >Elaboración propia · 2026</text>
+</svg>
