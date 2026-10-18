@@ -1,4 +1,7 @@
 /* Exploradores de números · prototipo didáctico original · v1.1
+   © 2026 John Fernando Vergara Arroyo.
+   Código funcional original: MIT (archivo LICENSE).
+   Textos, preguntas y demás contenidos educativos: CC BY-NC-SA 4.0 (LICENSE-CONTENIDOS.md).
    HTML/CSS/JavaScript sin librerías ni llamadas de red.
    Los resultados se guardan únicamente en localStorage del navegador. */
 (() => {
