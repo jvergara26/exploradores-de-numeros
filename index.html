@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Unidad didáctica digital de grado sexto sobre múltiplos, divisores y criterios de divisibilidad, con retos y reportes descargables.">
+  <meta name="theme-color" content="#24473f">
+  <title>Exploradores de números | RED Matemáticas 6.º</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip">Saltar al contenido principal</a>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#inicio" id="homeBrand" aria-label="Ir al inicio de Exploradores de números">
+        <span class="brand-icon" aria-hidden="true">∑</span>
+        <span><strong>EXPLORADORES</strong><small>DE NÚMEROS · 6.º</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="site-context">Matemáticas · Montería, Córdoba</span>
+        <button type="button" id="reportNav" class="button button-outline button-small">↓ Mi reporte</button>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Navegación de misiones">
+        <div class="sidebar-heading">TU EXPEDICIÓN <span id="sidePercent">0%</span></div>
+        <div class="progress-track" role="progressbar" id="sideProgress" aria-label="Progreso del curso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="progress-fill" id="sideProgressFill"></span></div>
+        <nav class="mission-nav" id="missionNav"></nav>
+        <div class="tip-sidebar"><span aria-hidden="true">✦</span><p>Equivocarse también ayuda a aprender. Lee las pistas y vuelve a intentarlo.</p></div>
+      </aside>
+      <main id="main" tabindex="-1">
+        <div id="view"></div>
+      </main>
+    </div>
+    <footer class="footer">
+      <span>Colegio Isabel La Católica · Matemáticas · 6-1 y 6-2</span>
+      <span>Propuesta académica · UDES · Versión prototipo 1.0</span>
+      <span>El progreso se guarda en este navegador. No se envían datos a ningún servidor.</span>
+    </footer>
+  </div>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
