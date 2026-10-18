@@ -23,9 +23,14 @@ Los textos, explicaciones, actividades, enunciados, ejemplos, orientaciones, ele
 
 No se autoriza la explotación comercial del **material educativo licenciado** mediante este permiso. La licencia no se extiende automáticamente a recursos de terceros ni a datos de estudiantes.
 
-### Código fuente: licencia independiente
+### Código fuente funcional: MIT
 
-La licencia de software para los fragmentos **funcionales** HTML/CSS/JavaScript se encuentra **pendiente de confirmación expresa del autor**. La licencia CC indicada arriba no cubre por sí sola esos componentes informáticos. Hasta que se publique un archivo de licencia de software, no debe suponerse que el código pueda reutilizarse libremente fuera de lo permitido por la ley.
+El **código funcional original** (estructura e interacción programada en HTML, reglas CSS y funciones y algoritmos JavaScript) está disponible bajo la **licencia MIT**, con autoría de John Fernando Vergara Arroyo (2026).
+
+- [Texto íntegro de la licencia MIT](LICENSE)
+- [Referencia oficial de la licencia MIT (OSI)](https://opensource.org/license/mit)
+
+La licencia MIT permite copiar, modificar, distribuir y utilizar comercialmente el **software**, conservando el aviso de derechos de autor y la licencia. **No convierte en comerciales ni elimina las condiciones CC BY-NC-SA 4.0 de los contenidos educativos**: preguntas, textos, explicaciones, material didáctico e imágenes mantienen su licencia de contenido, aunque aparezcan insertos dentro de archivos HTML o JavaScript.
 
 **Importante:** algunas preguntas, instrucciones y explicaciones educativas se encuentran dentro de `index.html` y `app.js`. Su ubicación técnica no modifica las condiciones CC BY-NC-SA 4.0 sobre el contenido educativo.
 
