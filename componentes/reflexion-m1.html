@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reflexión de la Misión 1 de Exploradores de números: múltiplos de 4.">
+  <title>Mi reflexión matemática · Misión 1</title>
+  <!-- Código funcional original: licencia MIT. Contenidos educativos: CC BY-NC-SA 4.0.
+       Autor: John Fernando Vergara Arroyo. No se transmiten ni almacenan respuestas. -->
+  <style>
+    :root { color-scheme: light; --ink:#193b43; --body:#263e48; --accent:#126b72;
+      --border:#b7cbd1; --panel:#f5f9f9; --sub:#e8f3f3; --error:#a42631; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:12px; background:transparent; color:var(--body);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; line-height:1.5; }
+    main { max-width:840px; margin:0 auto; border:1px solid var(--border); border-radius:13px;
+      padding:clamp(16px,3vw,28px); background:white; }
+    .eyebrow { margin:0 0 5px; font-size:.86rem; font-weight:700; color:var(--accent);
+      letter-spacing:.02em; text-transform:uppercase; }
+    h2 { margin:0 0 12px; color:var(--ink); font-size:clamp(1.2rem,2.8vw,1.5rem); line-height:1.3; }
+    p { margin:0 0 15px; }
+    .notice { padding:11px 14px; background:var(--panel); border-left:4px solid var(--accent);
+      border-radius:5px; font-size:.94rem; }
+    .meta { display:flex; flex-wrap:wrap; gap:14px; margin:17px 0; }
+    .meta label { display:block; font-weight:600; font-size:.94rem; flex:1 1 180px; }
+    select { margin-top:6px; width:100%; background:#fff; color:var(--ink);
+      padding:11px 12px; border:1px solid #7c999f; border-radius:7px; font:inherit; }
+    .question { margin:16px 0; }
+    .question label { display:block; margin-bottom:7px; font-weight:650; color:var(--ink); }
+    .question small { display:block; margin-bottom:9px; font-size:.9rem; color:#3d5862; }
+    textarea { width:100%; min-height:125px; resize:vertical; padding:12px; color:var(--ink);
+      border:1px solid #7c999f; border-radius:8px; font:inherit; line-height:1.5; }
+    textarea:focus-visible, select:focus-visible, button:focus-visible { outline:3px solid #e3a935; outline-offset:2px; }
+    .actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:14px; }
+    button { border:0; background:var(--accent); color:white; padding:12px 18px;
+      border-radius:8px; font:inherit; font-weight:700; cursor:pointer; min-height:46px; }
+    button:hover { background:#0b5056; }
+    #message { min-height:1.5em; margin:8px 0 0; color:var(--accent); font-weight:600; }
+    #message.error { color:var(--error); }
+    footer { font-size:.78rem; color:#475e66; margin-top:17px; padding-top:12px; border-top:1px solid #d7e4e7; }
+    @media (max-width:520px) { body { padding:5px; } main { padding:15px; } button { width:100%; } }
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Exploradores de números · Misión 1</p>
+  <h2>Mi reflexión matemática</h2>
+  <p>Escribe cómo llegaste a tus respuestas. Puedes utilizar una multiplicación o una división exacta para justificar tu procedimiento.</p>
+  <p class="notice">Tu respuesta <strong>no se envía a Internet</strong> ni se guarda en esta página. Al terminar, descarga el archivo TXT y entrégalo al docente por el canal indicado. No escribas nombres completos ni números de documento.</p>
+  <form id="reflectionForm" novalidate>
+    <div class="meta">
+      <label for="studentCode">Código asignado por el docente
+        <select id="studentCode" required>
+          <option value="">Selecciona tu código</option>
+          <option value="E01">E01</option><option value="E02">E02</option>
+          <option value="E03">E03</option><option value="E04">E04</option>
+          <option value="E05">E05</option>
+        </select>
+      </label>
+      <label for="studentGroup">Grupo
+        <select id="studentGroup" required>
+          <option value="">Selecciona tu grupo</option>
+          <option value="6-1">6-1</option><option value="6-2">6-2</option>
+        </select>
+      </label>
+    </div>
+    <div class="question">
+      <label for="reflectionOne">1. Camila afirma que 28 es múltiplo de 4. ¿Estás de acuerdo? Explica por qué.</label>
+      <small>Justifica utilizando una multiplicación o una división exacta.</small>
+      <textarea id="reflectionOne" required maxlength="3000" placeholder="Escribe tu explicación aquí…"></textarea>
+    </div>
+    <div class="question">
+      <label for="reflectionTwo">2. ¿El número 30 también es múltiplo de 4? Justifica tu respuesta.</label>
+      <small>Explica el procedimiento que utilizaste para comprobarlo.</small>
+      <textarea id="reflectionTwo" required maxlength="3000" placeholder="Escribe tu explicación aquí…"></textarea>
+    </div>
+    <div class="actions">
+      <button type="submit" id="download">Descargar mis respuestas (.txt)</button>
+      <span aria-hidden="true">Archivo para entrega al docente</span>
+    </div>
+    <p id="message" role="status" aria-live="polite"></p>
+  </form>
+  <footer>Autor: John Fernando Vergara Arroyo. Contenidos educativos originales: CC BY-NC-SA 4.0. Código funcional original: MIT.</footer>
+</main>
+<script>
+(function () {
+  'use strict';
+  var form = document.getElementById('reflectionForm');
+  var message = document.getElementById('message');
+  function showMessage(text, isError) {
+    message.textContent = text;
+    message.classList.toggle('error', Boolean(isError));
+  }
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var code = document.getElementById('studentCode').value;
+    var group = document.getElementById('studentGroup').value;
+    var first = document.getElementById('reflectionOne').value.trim();
+    var second = document.getElementById('reflectionTwo').value.trim();
+    if (!/^E0[1-5]$/.test(code) || !/^6-[12]$/.test(group)) {
+      showMessage('Selecciona el código asignado y tu grupo.', true);
+      return;
+    }
+    if (!first || !second) {
+      showMessage('Completa ambas explicaciones antes de descargar el archivo.', true);
+      return;
+    }
+    var lines = [
+      'EXPLORADORES DE NÚMEROS - MISIÓN 1',
+      'Reflexión matemática individual',
+      'Código: ' + code,
+      'Grupo: ' + group,
+      '',
+      '1. ¿Por qué 28 es múltiplo de 4?',
+      first,
+      '',
+      '2. ¿30 es múltiplo de 4? Justifica.',
+      second,
+      '',
+      'Estas respuestas son una reflexión del estudiante y requieren valoración docente.'
+    ];
+    var blob = new Blob(['\uFEFF' + lines.join('\r\n')], {type:'text/plain;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'Reflexion_M1_' + code + '_' + group.replace('-', '_') + '.txt';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2500);
+    showMessage('Archivo preparado. Comprueba la carpeta Descargas y entrégalo al docente.', false);
+  });
+}());
+</script>
+</body>
+</html>
