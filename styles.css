@@ -139,7 +139,7 @@
 .guide-end{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:18px}
 @media(max-width:760px){.guide-index-links{grid-template-columns:1fr}.guide-index{padding:16px}.guide-part{padding:18px}.guide-end>.button{width:100%}}
 
-/* Sección Créditos de la versión 1.3 */
+/* Sección Créditos de la versión 1.2 */
 .nav-credits{border-top:1px solid var(--line);margin-top:9px;padding-top:12px}
 .credits-page{max-width:1050px;margin:0 auto}
 .credits-banner{border:1px solid #a7c9b4;background:#e7f3ea;border-radius:23px;padding:clamp(25px,4vw,42px);margin-bottom:20px}
