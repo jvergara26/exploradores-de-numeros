@@ -283,7 +283,7 @@
           <p class="guide-equation">8 × 7 = 56; 8 × 8 = 64</p>
           <p><strong>Comprobación:</strong> 62 queda entre dos múltiplos consecutivos de 8. <strong>Conclusión:</strong> 62 no es múltiplo de 8.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> escribe los primeros cinco múltiplos positivos de 4 y comprueba cada uno con una multiplicación. Esta actividad no se resuelve en los ejemplos.</p>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> escribe los primeros cinco múltiplos positivos de 12 y comprueba cada uno con una multiplicación. Esta actividad no se resuelve en los ejemplos.</p>
       </section>
       <section id="guide-divisors" class="guide-part" aria-labelledby="guide-divisors-title">
         <h2 id="guide-divisors-title" tabindex="-1">4. Misión 2: divisores</h2>
@@ -312,7 +312,7 @@
           <p class="guide-equation">63 ÷ 9 = 7; 63 = 8 × 7 + 7</p>
           <p><strong>Conclusión:</strong> 9 es divisor de 63; en cambio, 8 no lo es porque quedarían siete sobres sueltos.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> demuestra por qué 6 sí es divisor de 30 y por qué 4 no lo es. Justifica con operaciones propias.</p>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> demuestra por qué 6 sí es divisor de 66 y por qué 4 no lo es. Justifica con operaciones propias.</p>
       </section>
       <section id="guide-divisibility" class="guide-part" aria-labelledby="guide-divisibility-title">
         <h2 id="guide-divisibility-title" tabindex="-1">5. Misión 3: criterios de divisibilidad</h2>
@@ -380,7 +380,7 @@
           <p class="guide-equation">132 ÷ 6 = 22; 132 = 5 × 26 + 2</p>
           <p><strong>Conclusión:</strong> 6 es divisor de 132 y 5 no. Como termina en 2 y 1 + 3 + 2 = 6, también es divisible por 2 y por 3.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> propón dos tamaños de paquetes para repartir exactamente 42 fichas y explica por qué. Comprueba tus elecciones sin copiar una respuesta resuelta.</p>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> propón dos tamaños de paquetes para repartir exactamente 88 fichas y explica por qué. Comprueba tus elecciones sin copiar una respuesta resuelta.</p>
       </section>
       <section id="guide-evaluation" class="guide-part" aria-labelledby="guide-evaluation-title">
         <h2 id="guide-evaluation-title" tabindex="-1">7. Evaluación y reporte</h2>
