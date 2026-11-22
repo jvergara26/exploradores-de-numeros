@@ -173,3 +173,7 @@
 .footer-css-validation a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .footer-css-validation img{display:block;width:88px;height:31px;border:0}
 @media(max-width:760px){.footer-css-validation{flex-wrap:wrap;justify-content:flex-start}}
+
+/* Identificación con un único campo de código, adaptable a dispositivos móviles. */
+.profile-code-only .field{width:min(100%,420px)}
+.profile-code-only .control{width:100%}
