@@ -532,7 +532,7 @@
   window.addEventListener('popstate',syncViewWithUrl);
   window.addEventListener('hashchange',syncViewWithUrl);
   persist();current=viewFromUrl();
-  const initialCanonical='#'+(current==='home'?'inicio':current);
+  const initialCanonical='#'+(current==='home'?'inicio':current==='guide'?'guia':current);
   if(location.hash&&location.hash!==initialCanonical)history.replaceState(null,'',initialCanonical);
   render();
   // Instrumentación auxiliar opcional para verificar matemática y completitud en pruebas automatizadas.
