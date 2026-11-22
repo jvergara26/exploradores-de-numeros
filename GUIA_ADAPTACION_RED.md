@@ -1,4 +1,4 @@
-# Guía de adaptación y reutilización de Exploradores de números (v1.3)
+# Guía de adaptación y reutilización de Exploradores de números (v1.2)
 
 Este documento explica cómo adaptar el RED sin confundir actividades realizadas con dominio matemático.
 
@@ -29,4 +29,8 @@ Este documento explica cómo adaptar el RED sin confundir actividades realizadas
 5. Probar navegación, teclado, móvil y ampliación; validar HTML/CSS con W3C.
 6. Confirmar las licencias y revisar que el reporte no revele datos personales.
 
-**Alcance de la versión 1.3:** rediseño visual, guía didáctica estudiantil y sección «Créditos» sin ZIP. Conserva los bancos de evaluación y no afirma dominio de los estudiantes.
+**Alcance de la versión 1.2:** rediseño visual, guía didáctica estudiantil y sección «Créditos» sin ZIP. Conserva los bancos de evaluación y no afirma dominio de los estudiantes.
+
+
+## Denominación de versión y datos existentes
+La **versión final aprobada del rediseño es 1.2**. La etiqueta 1.3 fue una denominación editorial provisional utilizada durante ajustes del recurso y fue retirada. La aplicación admite estructuras locales válidas identificadas como 1.0, 1.1, 1.2 y 1.3 para permitir la continuidad del progreso, sin modificar la clave de almacenamiento.
