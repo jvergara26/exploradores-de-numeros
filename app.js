@@ -269,7 +269,23 @@
       panel.insertAdjacentHTML('beforeend','<div class="lesson-continue"><button type="button" class="button button-outline button-small" data-action="jump-section" data-step="'+next+'">Siguiente apartado: '+esc(guide.steps[next].label)+' →</button></div>');
     });
   }
-  function render(){if(!['home','profile','report',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();enhanceMissionStructure();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
+  // Claves visuales consistentes en todas las misiones; no alteran las respuestas ni el avance.
+  function decorateLearningPanels(){
+    if(!META.some(m=>m.id===current))return;
+    document.querySelectorAll('#view .panel').forEach(panel=>{
+      const kicker=panel.querySelector('.panel-kicker')?.textContent.trim()||'';
+      const reflection=Boolean(panel.querySelector('textarea[data-reflection]'));
+      const question=Boolean(panel.querySelector('.choice-list,[data-action="verify-chips"],[data-action="criteria-check"]'))
+        ||panel.classList.contains('optional-challenge')
+        ||/^(Practica|Clasifica|Evaluación final|Desafío)/.test(kicker);
+      const kind=reflection?'reflection':question?'question':'content';
+      const caption=kind==='reflection'?'Reflexiona y explica':kind==='question'?'Pregunta o reto':'Contenido y orientación';
+      const glyph=kind==='reflection'?'✎':kind==='question'?'?':'▣';
+      panel.classList.add('panel--'+kind);
+      panel.insertAdjacentHTML('afterbegin','<div class="panel-purpose-tag"><span class="panel-purpose-icon" aria-hidden="true">'+glyph+'</span>'+caption+'</div>');
+    });
+  }
+  function render(){if(!['home','profile','report',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();enhanceMissionStructure();decorateLearningPanels();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
   function renderAfterAction(el){
     const fields=['action','kind','key','choice','module','number','index','criterion'];
     const identity=fields.filter(k=>el.dataset[k]!==undefined).map(k=>[k,el.dataset[k]]);
