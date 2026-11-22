@@ -266,7 +266,7 @@
         </div>
         <div class="guide-example">
           <h3>Ejemplo resuelto 2 · Tarjetas para un salón</h3>
-          <p>Se forman 7 equipos de 5 estudiantes y cada equipo recibe 5 tarjetas. ¿Cuántas tarjetas recibe el conjunto de equipos?</p>
+          <p>En un salón se forman 7 equipos y cada equipo recibe 5 tarjetas. ¿Cuántas tarjetas reciben entre todos?</p>
           <p class="guide-equation">7 × 5 = 35</p>
           <p><strong>Comprobación:</strong> 5, 10, 15, 20, 25, 30, 35. El 35 pertenece a los múltiplos de 5.</p>
         </div>
