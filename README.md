@@ -2,14 +2,14 @@
 
 **Versión 1.2 (rediseño técnico-pedagógico).** Se incorporan orientaciones entre apartados, comparación visual de múltiplos y divisores, acceso más claro al reporte, instrucciones para equipos compartidos y un desafío optativo sin calificación. El banco de preguntas, la lógica de desbloqueo y los datos guardados permanecen compatibles con la versión anterior.
 
-[Guía de adaptación y reutilización](GUIA_ADAPTACION_RED.md)
+[Guía de adaptación y reutilización](GUIA_ADAPTACION_RED.md) · [Orientaciones pedagógicas para docentes](ORIENTACIONES_DOCENTES.md)
 
 
 Recurso Educativo Digital (RED) interactivo para Matemáticas de grado sexto, elaborado por **John Fernando Vergara Arroyo** (2026), en el contexto de la Especialización en Aplicación de TIC para la Enseñanza (UDES).
 
 - **Acceso al recurso:** https://jvergara26.github.io/exploradores-de-numeros/
 - **Contenidos:** múltiplos, divisores y divisibilidad por 2, 3, 5 y 10.
-- **Guía didáctica:** sección independiente en el menú, accesible en [`#guia`](https://jvergara26.github.io/exploradores-de-numeros/#guia), con objetivos, dieciséis ejemplos resueltos (cuatro por misión) y orientaciones docentes.
+- **Guía didáctica:** sección independiente en el menú, accesible en [`#guia`](https://jvergara26.github.io/exploradores-de-numeros/#guia), con siete apartados para estudiantes y dieciséis ejemplos resueltos (cuatro por misión).
 - **Organización:** cuatro misiones progresivas, evaluación formativa y reporte local descargable.
 - **Tecnología:** HTML5, CSS3 y JavaScript; sin cuentas de estudiantes ni servidor de resultados.
 - **Recursos gráficos:** carpeta [evidencias/](evidencias/) (mapa conceptual e infografía en PNG y SVG).
