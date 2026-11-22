@@ -1,6 +1,6 @@
 # Exploradores de números
 
-**Versión 1.2 (rediseño técnico-pedagógico).** Se incorporan orientaciones entre apartados, comparación visual de múltiplos y divisores, acceso más claro al reporte, instrucciones para equipos compartidos y un desafío optativo sin calificación. El banco de preguntas, la lógica de desbloqueo y los datos guardados permanecen compatibles con la versión anterior.
+**Versión 1.3 (rediseño técnico-pedagógico).** Incluye diferenciación visual entre contenidos, preguntas y reflexiones; guía didáctica independiente con 16 ejemplos, página de Créditos y mejor acceso al reporte. No ofrece ZIP para descargar el RED. Conserva los bancos de preguntas, el desbloqueo y la compatibilidad del progreso guardado.
 
 [Guía de adaptación y reutilización](GUIA_ADAPTACION_RED.md) · [Orientaciones pedagógicas para docentes](ORIENTACIONES_DOCENTES.md)
 
@@ -10,6 +10,7 @@ Recurso Educativo Digital (RED) interactivo para Matemáticas de grado sexto, el
 - **Acceso al recurso:** https://jvergara26.github.io/exploradores-de-numeros/
 - **Contenidos:** múltiplos, divisores y divisibilidad por 2, 3, 5 y 10.
 - **Guía didáctica:** sección independiente en el menú, accesible en [`#guia`](https://jvergara26.github.io/exploradores-de-numeros/#guia), con siete apartados para estudiantes y dieciséis ejemplos resueltos (cuatro por misión).
+- **Créditos:** sección independiente en [`#creditos`](https://jvergara26.github.io/exploradores-de-numeros/#creditos), con autoría, información institucional y licencias, sin descarga ZIP.
 - **Organización:** cuatro misiones progresivas, evaluación formativa y reporte local descargable.
 - **Tecnología:** HTML5, CSS3 y JavaScript; sin cuentas de estudiantes ni servidor de resultados.
 - **Recursos gráficos:** carpeta [evidencias/](evidencias/) (mapa conceptual e infografía en PNG y SVG).
