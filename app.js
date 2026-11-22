@@ -216,7 +216,7 @@
   }
   function reflection(module,title,prompt,min=10){return `<section class="panel"><div class="panel-kicker">Reflexiona · 5 minutos</div><h2>${esc(title)}</h2><p>${esc(prompt)}</p><div class="callout"><strong>Guía para explicar tu respuesta</strong><ol>${REFLECTION_GUIDES[module].map(item=>`<li>${esc(item)}</li>`).join('')}</ol><p>Escribe el procedimiento con tus palabras. La aplicación no puede verificar si tu explicación es matemáticamente correcta.</p></div><label class="reflection-label" for="reflect-${module}">Tu explicación escrita</label><textarea id="reflect-${module}" aria-describedby="reflect-instructions-${module} reflect-status-${module}" class="textarea" data-reflection="${module}" maxlength="1500" placeholder="Escribe con tus propias palabras…">${esc(module==='m4'?state.final.reflection:state[module].reflection)}</textarea><p class="tiny muted" id="reflect-instructions-${module}">Se guarda en este navegador. Mínimo ${min} caracteres para guardar. La longitud no acredita aprendizaje: el docente revisará las cuatro explicaciones con una rúbrica.</p><p class="tiny" id="reflect-status-${module}">${((module==='m4'?state.final.reflection:state[module].reflection).trim().length>=min)?'✓ Texto guardado · pendiente de revisión docente':'Pendiente de escribir'}</p><button type="button" class="button button-outline" data-action="save-reflection">Guardar reflexión y revisar avance →</button></section>`;}
   function renderHome(){return `<section class="hero"><div class="eyebrow">Misión digital · Matemáticas de sexto grado</div><h1>Exploradores<br>de números</h1><p>Cuatro misiones para descubrir múltiplos, divisores y pistas de divisibilidad. Aprende a tu ritmo, practica y demuestra cómo piensas.</p><div class="hero-meta"><span>4 misiones · 55 min cada una</span><span>Retos con pistas</span><span>Sin crear cuentas</span></div><button class="button button-gold" data-action="goto" data-target="${configured()?'m1':'profile'}">${configured()?'Continuar expedición →':'Comenzar mi expedición →'}</button></section>
-    <div class="section-head"><div><h2>Mapa de misiones</h2><p>Completa las actividades para desbloquear la siguiente misión. Este avance no equivale a una calificación.</p></div><span class="badge">${completedCount()} de 4 completadas</span></div><div class="cards">${META.map((m,i)=>`<article class="mission-card"><div class="card-symbol" aria-hidden="true">${m.icon}</div><h3>${i+1}. ${m.name}</h3><p>${['Encuentra regularidades y aprende a construir listas de múltiplos.','Forma grupos iguales, descubre divisores y justifica repartos exactos.','Descubre reglas para decidir si un número se divide entre 2, 3, 5 y 10.','Aplica lo aprendido en situaciones de una feria y del entorno.'][i]}</p><div class="card-foot"><span class="badge ${complete(m.id)?'':'purple'}">${complete(m.id)?'Completada':(m.id==='m1'||isUnlocked(m.id))?'Disponible':'Bloqueada'}</span><button class="button button-small ${isUnlocked(m.id)?'':'button-outline'}" ${(m.id==='m1'||isUnlocked(m.id))?'':'disabled'} data-action="goto" data-target="${m.id}">${complete(m.id)?'Repasar':(m.id==='m1'&&!configured())?'Empezar →':isUnlocked(m.id)?'Entrar →':'🔒'}</button></div></article>`).join('')}</div><div class="panel"><h2>¿Qué aprenderás?</h2><p>Reconocer múltiplos y divisores de números naturales, utilizar los criterios de divisibilidad por 2, 3, 5 y 10, y resolver situaciones de agrupación o reparto sin residuo.</p><div class="callout green"><strong>Recuerda</strong>El diagnóstico inicial no tiene calificación. Las pistas y oportunidades de corregir respuestas son parte del aprendizaje.</div></div><section class="panel guide-home-link"><h2>Guía didáctica de consulta</h2><p>Explicaciones y ocho ejemplos resueltos, con recomendaciones para aprender y enseñar los contenidos del RED.</p><button class="button button-outline" data-action="goto" data-target="guide">Abrir la guía didáctica →</button></section><section class="panel report-guide"><div class="panel-kicker">Tu trabajo queda en este equipo</div><h2>¿Dónde encuentro mis avances?</h2><p>En <strong>Mi reporte</strong> puedes consultar las misiones realizadas y descargar tus respuestas. Antes de cambiar de computador, guarda el archivo y entrégalo por el medio indicado por el docente.</p><p class="tiny muted">El porcentaje indica actividades terminadas, no dominio matemático demostrado.</p>${configured()?'<button class="button button-outline" data-action="goto" data-target="report">Consultar y descargar mi reporte ↓</button>':'<p class="tiny muted">Al comenzar la expedición podrás consultar tu reporte.</p>'}</section>`;}
+    <div class="section-head"><div><h2>Mapa de misiones</h2><p>Completa las actividades para desbloquear la siguiente misión. Este avance no equivale a una calificación.</p></div><span class="badge">${completedCount()} de 4 completadas</span></div><div class="cards">${META.map((m,i)=>`<article class="mission-card"><div class="card-symbol" aria-hidden="true">${m.icon}</div><h3>${i+1}. ${m.name}</h3><p>${['Encuentra regularidades y aprende a construir listas de múltiplos.','Forma grupos iguales, descubre divisores y justifica repartos exactos.','Descubre reglas para decidir si un número se divide entre 2, 3, 5 y 10.','Aplica lo aprendido en situaciones de una feria y del entorno.'][i]}</p><div class="card-foot"><span class="badge ${complete(m.id)?'':'purple'}">${complete(m.id)?'Completada':(m.id==='m1'||isUnlocked(m.id))?'Disponible':'Bloqueada'}</span><button class="button button-small ${isUnlocked(m.id)?'':'button-outline'}" ${(m.id==='m1'||isUnlocked(m.id))?'':'disabled'} data-action="goto" data-target="${m.id}">${complete(m.id)?'Repasar':(m.id==='m1'&&!configured())?'Empezar →':isUnlocked(m.id)?'Entrar →':'🔒'}</button></div></article>`).join('')}</div><div class="panel"><h2>¿Qué aprenderás?</h2><p>Reconocer múltiplos y divisores de números naturales, utilizar los criterios de divisibilidad por 2, 3, 5 y 10, y resolver situaciones de agrupación o reparto sin residuo.</p><div class="callout green"><strong>Recuerda</strong>El diagnóstico inicial no tiene calificación. Las pistas y oportunidades de corregir respuestas son parte del aprendizaje.</div></div><section class="panel guide-home-link"><h2>Guía didáctica de consulta</h2><p>Explicaciones y dieciséis ejemplos resueltos, cuatro por misión, con recomendaciones para aprender y enseñar los contenidos del RED.</p><button class="button button-outline" data-action="goto" data-target="guide">Abrir la guía didáctica →</button></section><section class="panel report-guide"><div class="panel-kicker">Tu trabajo queda en este equipo</div><h2>¿Dónde encuentro mis avances?</h2><p>En <strong>Mi reporte</strong> puedes consultar las misiones realizadas y descargar tus respuestas. Antes de cambiar de computador, guarda el archivo y entrégalo por el medio indicado por el docente.</p><p class="tiny muted">El porcentaje indica actividades terminadas, no dominio matemático demostrado.</p>${configured()?'<button class="button button-outline" data-action="goto" data-target="report">Consultar y descargar mi reporte ↓</button>':'<p class="tiny muted">Al comenzar la expedición podrás consultar tu reporte.</p>'}</section>`;}
   function renderGuide(){
     return `<article class="didactic-guide" aria-labelledby="guide-title">
       <header class="guide-banner">
@@ -255,40 +255,68 @@
         </ol>
         <div class="guide-info"><strong>Importante:</strong> las prácticas permiten corregir respuestas. El diagnóstico de seis preguntas no tiene nota; las ocho preguntas finales se registran al primer intento. Terminar una misión no acredita por sí solo dominio matemático.</div>
       </section>
+
       <section id="guide-multiples" class="guide-part" aria-labelledby="guide-multiples-title">
         <h2 id="guide-multiples-title" tabindex="-1">3. Misión 1: múltiplos</h2>
-        <p>Un <strong>múltiplo</strong> se obtiene al multiplicar un número natural por otro. Algunos múltiplos positivos de 6 son 6, 12, 18, 24, 30 y 36.</p>
+        <p>Un <strong>múltiplo</strong> se obtiene al multiplicar un número natural por otro. Observa cuatro situaciones diferentes y comprueba qué cantidad se repite en cada caso.</p>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 1 · Paquetes de una feria escolar</h3>
-          <p>En una feria de la IE Isabel La Católica se preparan paquetes de 6 lápices. ¿Cuántos lápices hay en 4 paquetes?</p>
-          <p class="guide-equation">6 × 4 = 24</p>
-          <p><strong>Respuesta:</strong> 24 lápices. El número 24 es múltiplo de 6 porque 6 × 4 = 24.</p>
+          <h3>Ejemplo resuelto 1 · Semilleros de la huerta escolar</h3>
+          <p>En la huerta escolar se preparan 7 bandejas con 3 plantas en cada una. ¿Cuántas plantas se necesitan?</p>
+          <p class="guide-equation">7 × 3 = 21</p>
+          <p><strong>Procedimiento:</strong> sumamos 7 grupos de 3 plantas, o multiplicamos directamente. <strong>Conclusión:</strong> 21 es múltiplo de 3 y de 7.</p>
         </div>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 2 · Tarjetas para un salón</h3>
-          <p>En un salón se forman 7 equipos y cada equipo recibe 5 tarjetas. ¿Cuántas tarjetas reciben entre todos?</p>
-          <p class="guide-equation">7 × 5 = 35</p>
-          <p><strong>Comprobación:</strong> 5, 10, 15, 20, 25, 30, 35. El 35 pertenece a los múltiplos de 5.</p>
+          <h3>Ejemplo resuelto 2 · Estantes de una biblioteca</h3>
+          <p>Una biblioteca de Montería dispone 9 estantes pequeños con 8 libros en cada uno. ¿Cuántos libros se organizaron?</p>
+          <p class="guide-equation">9 × 8 = 72</p>
+          <p><strong>Comprobación:</strong> hay nueve grupos de ocho. <strong>Conclusión:</strong> 72 es múltiplo de 8 y de 9.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> escribe los primeros cinco múltiplos positivos de 4 y comprueba cada uno con una multiplicación.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 3 · Materiales de una exposición</h3>
+          <p>Para una exposición de ciencias se preparan 11 mesas con 4 marcadores por mesa. ¿Cuántos marcadores hay en total?</p>
+          <p class="guide-equation">11 × 4 = 44</p>
+          <p><strong>Procedimiento:</strong> multiplicamos las mesas por los marcadores de cada una. <strong>Conclusión:</strong> 44 pertenece a la lista de múltiplos de 11: 11, 22, 33, 44…</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 4 · ¿Una cantidad es múltiplo?</h3>
+          <p>Un grupo reunió 62 fotografías. ¿Es posible repartirlas en paquetes de 8 sin sobrantes?</p>
+          <p class="guide-equation">8 × 7 = 56; 8 × 8 = 64</p>
+          <p><strong>Comprobación:</strong> 62 queda entre dos múltiplos consecutivos de 8. <strong>Conclusión:</strong> 62 no es múltiplo de 8.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> escribe los primeros cinco múltiplos positivos de 12 y comprueba cada uno con una multiplicación. Esta actividad no se resuelve en los ejemplos.</p>
       </section>
       <section id="guide-divisors" class="guide-part" aria-labelledby="guide-divisors-title">
         <h2 id="guide-divisors-title" tabindex="-1">4. Misión 2: divisores</h2>
-        <p>Un número es <strong>divisor</strong> de otro cuando permite una división exacta: no sobra ninguna unidad.</p>
+        <p>Un número es <strong>divisor</strong> de otro cuando la división es exacta: el residuo debe ser cero. Compara casos donde se puede repartir todo con otros donde quedan sobrantes.</p>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 3 · Cuadernos para la institución</h3>
-          <p>Se tienen 36 cuadernos y se forman paquetes de 4: <strong>36 ÷ 4 = 9</strong>, residuo 0. Entonces 4 es divisor de 36.</p>
-          <p><strong>Compara:</strong> 36 ÷ 5 = 7 y sobra 1. El 5 no es divisor de 36.</p>
+          <h3>Ejemplo resuelto 5 · Fichas para una competencia</h3>
+          <p>Se tienen 32 fichas. ¿Pueden organizarse en grupos de 8? ¿Y en grupos de 6?</p>
+          <p class="guide-equation">32 ÷ 8 = 4; 32 = 6 × 5 + 2</p>
+          <p><strong>Conclusión:</strong> 8 es divisor de 32 porque se forman cuatro grupos exactos. En grupos de 6 sobran dos fichas; por eso 6 no es divisor de 32.</p>
         </div>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 4 · Reparto de 24 fichas</h3>
-          <p>Con 24 fichas se pueden formar tres grupos de 8, porque <strong>24 ÷ 8 = 3</strong>. Si se forman grupos de 7, hay tres grupos y sobran tres fichas: <strong>24 = 7 × 3 + 3</strong>.</p>
-          <p><strong>Conclusión:</strong> 8 es divisor de 24, pero 7 no. Además, 24 es múltiplo de 8 porque 8 × 3 = 24.</p>
+          <h3>Ejemplo resuelto 6 · Carpetas en la biblioteca</h3>
+          <p>Una biblioteca organiza 50 carpetas en lotes de 10. ¿Sobran carpetas? ¿Qué sucede si los lotes son de 8?</p>
+          <p class="guide-equation">50 ÷ 10 = 5; 50 = 8 × 6 + 2</p>
+          <p><strong>Conclusión:</strong> 10 es divisor de 50 porque no sobra ninguna carpeta. El 8 no lo es porque sobran dos.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> demuestra por qué 6 sí es divisor de 30 y por qué 4 no lo es.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 7 · Material para equipos deportivos</h3>
+          <p>Para una jornada deportiva se distribuyen 56 cintas en grupos de 7. ¿Cuántos grupos se forman? ¿Y si cada grupo recibe 9 cintas?</p>
+          <p class="guide-equation">56 ÷ 7 = 8; 56 = 9 × 6 + 2</p>
+          <p><strong>Conclusión:</strong> 7 es divisor de 56. El 9 no es divisor porque sobran dos cintas.</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 8 · Sobres para una campaña escolar</h3>
+          <p>Hay 63 sobres. Se quieren repartir en paquetes de 9 y también se considera hacerlo en paquetes de 8.</p>
+          <p class="guide-equation">63 ÷ 9 = 7; 63 = 8 × 7 + 7</p>
+          <p><strong>Conclusión:</strong> 9 es divisor de 63; en cambio, 8 no lo es porque quedarían siete sobres sueltos.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> demuestra por qué 6 sí es divisor de 66 y por qué 4 no lo es. Justifica con operaciones propias.</p>
       </section>
       <section id="guide-divisibility" class="guide-part" aria-labelledby="guide-divisibility-title">
         <h2 id="guide-divisibility-title" tabindex="-1">5. Misión 3: criterios de divisibilidad</h2>
+        <p>Las reglas permiten comprobar algunos divisores sin calcular toda la división. Revisa la última cifra y, cuando sea necesario, suma las cifras del número.</p>
         <div class="guide-table-wrap"><table class="guide-table">
           <caption>Reglas para los divisores 2, 3, 5 y 10</caption>
           <thead><tr><th scope="col">Divisor</th><th scope="col">Cómo reconocerlo</th></tr></thead>
@@ -300,32 +328,59 @@
           </tbody>
         </table></div>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 5 · El número 150</h3>
-          <p>Termina en 0, por lo tanto es divisible por 2, 5 y 10. Además, <strong>1 + 5 + 0 = 6</strong>, que es múltiplo de 3.</p>
-          <p><strong>Respuesta:</strong> 150 cumple los cuatro criterios.</p>
+          <h3>Ejemplo resuelto 9 · Código de un inventario</h3>
+          <p>Una caja está identificada con el número 246. Determina cuáles de los criterios estudiados cumple.</p>
+          <p class="guide-equation">2 + 4 + 6 = 12</p>
+          <p><strong>Comprobación:</strong> termina en 6, una cifra par; además, la suma 12 es múltiplo de 3. <strong>Conclusión:</strong> 246 es divisible por 2 y por 3, pero no por 5 ni por 10.</p>
         </div>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 6 · Tarjetas numeradas</h3>
-          <p>Se utiliza el número 126 en una actividad de Montería. Termina en 6 y <strong>1 + 2 + 6 = 9</strong>.</p>
-          <p><strong>Respuesta:</strong> 126 es divisible por 2 y 3, pero no por 5 ni por 10.</p>
+          <h3>Ejemplo resuelto 10 · Entradas para un evento</h3>
+          <p>Se numeran unas entradas con el número 175. ¿Qué criterios cumple?</p>
+          <p class="guide-equation">1 + 7 + 5 = 13</p>
+          <p><strong>Comprobación:</strong> termina en 5, pero la suma de sus cifras no es múltiplo de 3. <strong>Conclusión:</strong> 175 solo es divisible por 5 entre los cuatro criterios estudiados.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> indica qué criterios cumple 135 y justifica cada elección.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 11 · Número sin criterios favorables</h3>
+          <p>Un equipo recibe el número 91 y debe comprobarlo usando únicamente las reglas de 2, 3, 5 y 10.</p>
+          <p class="guide-equation">9 + 1 = 10</p>
+          <p><strong>Comprobación:</strong> termina en 1; no es par ni termina en 0 o 5. La suma de sus cifras tampoco es múltiplo de 3. <strong>Conclusión:</strong> 91 no cumple ninguno de esos cuatro criterios.</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 12 · Una cantidad que cumple los cuatro criterios</h3>
+          <p>En un inventario se registra el número 330. Comprueba la divisibilidad por 2, 3, 5 y 10.</p>
+          <p class="guide-equation">3 + 3 + 0 = 6</p>
+          <p><strong>Comprobación:</strong> termina en 0 y la suma de sus cifras es múltiplo de 3. <strong>Conclusión:</strong> 330 cumple los cuatro criterios.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> ¿cuáles de los cuatro criterios cumple 322? Argumenta con la última cifra y la suma de cifras.</p>
       </section>
       <section id="guide-integrated" class="guide-part" aria-labelledby="guide-integrated-title">
         <h2 id="guide-integrated-title" tabindex="-1">6. Misión 4: problemas integradores</h2>
-        <p>Lee la situación, escoge una operación, comprueba el residuo o el criterio y explica la conclusión.</p>
+        <p>Lee cada situación, decide qué operación necesitas, comprueba los residuos y explica tu conclusión. Estos cuatro casos utilizan cantidades diferentes de las preguntas de evaluación.</p>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 7 · Feria de Montería</h3>
-          <p>Se disponen 48 cuadernos. ¿Se pueden distribuir en paquetes de 6 y de 5?</p>
-          <p><strong>Paquetes de 6:</strong> 48 ÷ 6 = 8, exacto. <strong>Paquetes de 5:</strong> 48 = 5 × 9 + 3; sobran 3.</p>
-          <p><strong>Conclusión:</strong> 6 es divisor de 48, pero 5 no. Además, 48 es divisible por 2 y por 3 (4 + 8 = 12).</p>
+          <h3>Ejemplo resuelto 13 · Cuadernos para una campaña</h3>
+          <p>Una campaña escolar dispone de 96 cuadernos. ¿Pueden formarse paquetes de 12? ¿Y de 7?</p>
+          <p class="guide-equation">96 ÷ 12 = 8; 96 = 7 × 13 + 5</p>
+          <p><strong>Conclusión:</strong> con 12 cuadernos se forman ocho paquetes exactos. Con 7 por paquete quedan cinco sueltos.</p>
         </div>
         <div class="guide-example">
-          <h3>Ejemplo resuelto 8 · Botellas para una jornada escolar</h3>
-          <p>Hay 60 botellas. <strong>60 ÷ 4 = 15</strong> y <strong>60 ÷ 6 = 10</strong>; ambas divisiones son exactas.</p>
-          <p><strong>Conclusión:</strong> 60 es múltiplo de 4 y de 6. También cumple los criterios de divisibilidad por 2, 3, 5 y 10.</p>
+          <h3>Ejemplo resuelto 14 · Tarjetas en una exposición</h3>
+          <p>Para una exposición de la institución se preparan 100 tarjetas. ¿Pueden distribuirse en grupos de 4? ¿Y en grupos de 6?</p>
+          <p class="guide-equation">100 ÷ 4 = 25; 100 = 6 × 16 + 4</p>
+          <p><strong>Conclusión:</strong> los grupos de 4 son exactos; los grupos de 6 dejan cuatro tarjetas sobrantes.</p>
         </div>
-        <p class="guide-check"><strong>Ahora inténtalo:</strong> propone dos tamaños de paquetes que permitan repartir exactamente 42 fichas y explica por qué.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 15 · Plantas para un proyecto ambiental</h3>
+          <p>La huerta escolar tiene 144 plantas. Si se organizan en grupos de 9, ¿cuántos se forman? Comprueba también los criterios de divisibilidad por 2 y por 3.</p>
+          <p class="guide-equation">144 ÷ 9 = 16; 1 + 4 + 4 = 9</p>
+          <p><strong>Conclusión:</strong> se forman dieciséis grupos sin sobrantes. El 144 es divisible por 2 (termina en 4) y por 3 (sus cifras suman 9).</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 16 · Etiquetas para una feria</h3>
+          <p>Un salón dispone de 132 etiquetas. ¿Puede formar paquetes de 6 sin sobrantes? ¿Y de 5? Comprueba además si el número es divisible por 2 y por 3.</p>
+          <p class="guide-equation">132 ÷ 6 = 22; 132 = 5 × 26 + 2</p>
+          <p><strong>Conclusión:</strong> 6 es divisor de 132 y 5 no. Como termina en 2 y 1 + 3 + 2 = 6, también es divisible por 2 y por 3.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> propón dos tamaños de paquetes para repartir exactamente 88 fichas y explica por qué. Comprueba tus elecciones sin copiar una respuesta resuelta.</p>
       </section>
       <section id="guide-evaluation" class="guide-part" aria-labelledby="guide-evaluation-title">
         <h2 id="guide-evaluation-title" tabindex="-1">7. Evaluación y reporte</h2>
