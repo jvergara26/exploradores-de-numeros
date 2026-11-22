@@ -41,3 +41,6 @@
 .criterion-steps{display:grid;gap:9px}
 .criterion-steps p{background:#fff;border:1px solid #d8dcd2;border-radius:10px;padding:10px 12px;margin:0;font-size:14px}
 @media(max-width:760px){.number-line-figure,.reparto-figure,.divisibility-figure{padding:12px}.digit-tile{width:48px;height:58px;font-size:27px}}
+
+/* Misión 1: espacio real entre el selector de factor y la lista de múltiplos. */
+#factor-preview{margin-top:20px}
