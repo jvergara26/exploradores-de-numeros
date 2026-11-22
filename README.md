@@ -1,6 +1,8 @@
 # Exploradores de números
 
-**Versión 1.3 (rediseño técnico-pedagógico).** Incluye diferenciación visual entre contenidos, preguntas y reflexiones; guía didáctica independiente con 16 ejemplos, página de Créditos y mejor acceso al reporte. No ofrece ZIP para descargar el RED. Conserva los bancos de preguntas, el desbloqueo y la compatibilidad del progreso guardado.
+**Versión 1.2 (rediseño técnico-pedagógico definitivo).** Incluye diferenciación visual entre contenidos, preguntas y reflexiones; guía didáctica independiente con 16 ejemplos, página de Créditos y mejor acceso al reporte. No ofrece ZIP para descargar el RED. Conserva los bancos de preguntas, el desbloqueo y la compatibilidad del progreso guardado.
+
+**Compatibilidad de progreso:** la numeración final del rediseño es 1.2. La aplicación reconoce datos locales válidos registrados como 1.0, 1.1, 1.2 o 1.3; la etiqueta 1.3 usada en etapas intermedias queda retirada de la presentación del RED.
 
 [Guía de adaptación y reutilización](GUIA_ADAPTACION_RED.md) · [Orientaciones pedagógicas para docentes](ORIENTACIONES_DOCENTES.md)
 
