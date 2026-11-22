@@ -44,3 +44,19 @@
 
 /* Misión 1: espacio real entre el selector de factor y la lista de múltiplos. */
 #factor-preview{margin-top:20px}
+
+
+/* Accesibilidad WCAG 2.2 AA: controles distinguibles, seleccion no basada solo en color. */
+.select-row select,.control,.textarea{border-color:#71867c}
+.choice{border-color:#60776d;flex-wrap:wrap}
+.choice .marker{border-color:#60776d}
+.button-outline{border-color:#657e70}
+.number-chip{border-color:#617c6e}
+.number-chip[aria-pressed=true]::after{content:"✓";font-size:12px;margin-left:4px}
+.lesson-jump{border-color:#657e70}
+.batch{border-color:#60776d}
+.batch.leftover{border-color:#944f38}
+.dot{background:#537965}
+.option-selection{display:inline-flex;align-items:center;min-height:24px;margin-left:auto;padding:2px 8px;border-radius:7px;background:#e0efdf;color:#24473f;font-size:12px;font-weight:700}
+.reflection-label{display:block;margin:12px 0 7px;font-weight:700;color:var(--ink)}
+.control[aria-invalid="true"],.textarea[aria-invalid="true"]{border-color:#a14341;border-width:2px}
