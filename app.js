@@ -91,8 +91,119 @@
   function diagnosticScore(){return DIAG.reduce((sum,q,i)=>sum+(state.diagnostic.answers[i]===q.correct?1:0),0);}
   function completionRatio(){return Math.round(completedCount()/4*100);}
   function alertHTML(text,good=true){return text?`<div class="feedback ${good?'good':'wrong'}" role="status">${esc(text)}</div>`:'';}
-  function sectionIntro(n,kicker,title,desc,stage){return `<header class="mission-header"><div class="eyebrow">Misión ${n} / 4 · ${esc(stage)}</div><div class="title-row"><h1>${esc(title)}</h1><span class="badge purple">55 minutos</span></div><p class="sublead">${esc(desc)}</p></header><div class="lesson-overview"><div><strong>Ruta de aprendizaje</strong><p>${esc(kicker)}</p></div><div class="lesson-steps"><span>Explora</span><span>Practica</span><span>Resuelve</span><span>Reflexiona</span></div></div>`;}
-  function missionFooter(id,requirements){const done=complete(id);const index=META.findIndex(x=>x.id===id);const next=META[index+1];return `<div class="mission-complete" role="status"><h3>${done?'✓ ¡Misión completada!':'Tu misión sigue en marcha'}</h3><div class="details">${done?'Has realizado las actividades previstas. Las respuestas abiertas todavía requieren revisión del docente.':'Para completar: '+esc(requirements)}</div>${done&&next?`<div class="inline-actions"><button class="button" data-action="goto" data-target="${next.id}">Ir a la siguiente misión →</button></div>`:''}${done&&!next?'<p>Ahora puedes descargar tu reporte desde «Mi reporte».</p>':''}</div><div class="footer-nav"><button class="button button-outline" data-action="goto" data-target="home">← Volver a inicio</button><button class="button button-ghost" data-action="goto" data-target="report">Ver mi reporte ↓</button></div>`;}
+  // Objetivos y puntos de acceso de las cuatro misiones; contenidos originales intactos.
+  const MISSION_STRUCTURE = {
+    "m1": {
+      "objective": "Identificar múltiplos de números naturales, reconocer patrones y justificar una respuesta mediante multiplicaciones.",
+      "steps": [
+        {
+          "label": "Diagnóstico inicial",
+          "heading": "Diagnóstico inicial"
+        },
+        {
+          "label": "Explora los patrones",
+          "heading": "La máquina de multiplicar"
+        },
+        {
+          "label": "Práctica de múltiplos",
+          "heading": "Encuentra los múltiplos de 4"
+        },
+        {
+          "label": "Problema contextualizado",
+          "kicker": "Problema del entorno"
+        },
+        {
+          "label": "Reflexión",
+          "heading": "¿Qué descubriste?"
+        }
+      ]
+    },
+    "m2": {
+      "objective": "Reconocer divisores a partir de repartos exactos y explicar la relación entre multiplicación y división.",
+      "steps": [
+        {
+          "label": "Recuerda el concepto",
+          "heading": "¿Qué es un divisor?"
+        },
+        {
+          "label": "Explora los repartos",
+          "heading": "Reparte 24 fichas"
+        },
+        {
+          "label": "Práctica de divisores",
+          "heading": "¿Cuáles son los divisores de 24?"
+        },
+        {
+          "label": "Comprueba lo aprendido",
+          "kicker": "Comprueba la idea"
+        },
+        {
+          "label": "Problema contextualizado",
+          "kicker": "Problema del entorno"
+        },
+        {
+          "label": "Reflexión",
+          "heading": "¿Qué significa repartir exactamente?"
+        }
+      ]
+    },
+    "m3": {
+      "objective": "Aplicar los criterios de divisibilidad por 2, 3, 5 y 10 y justificar por qué un número cumple una regla.",
+      "steps": [
+        {
+          "label": "Aprende las reglas",
+          "heading": "Cuatro pistas rápidas"
+        },
+        {
+          "label": "Clasifica seis números",
+          "heading": "Clasifica seis números"
+        },
+        {
+          "label": "Problema contextualizado",
+          "kicker": "Problema del entorno"
+        },
+        {
+          "label": "Reflexión",
+          "heading": "¿Qué criterio utilizaste?"
+        }
+      ]
+    },
+    "m4": {
+      "objective": "Aplicar múltiplos, divisores y criterios de divisibilidad a problemas contextualizados y argumentar las soluciones.",
+      "steps": [
+        {
+          "label": "Recupera tus ideas",
+          "heading": "Antes de resolver"
+        },
+        {
+          "label": "Problemas integradores",
+          "heading": "Dos problemas integradores"
+        },
+        {
+          "label": "Evaluación final",
+          "heading": "Ocho preguntas individuales"
+        },
+        {
+          "label": "Argumentación y cierre",
+          "heading": "Argumenta tu solución"
+        }
+      ]
+    }
+  };
+  // Contador de actividades registradas: no constituye una calificación de dominio.
+  function missionActivityProgress(id){
+    const ready=(value,min)=>typeof value==='string'&&value.trim().length>=min;
+    if(id==='m1')return {done:Object.keys(state.diagnostic.answers).length+Number(state.m1.solved)+Number(state.m1.context===FORMATIVE['m1.context'].correct)+Number(ready(state.m1.reflection,10)),total:9};
+    if(id==='m2')return {done:Number(state.m2.solved)+Number(state.m2.concept===FORMATIVE['m2.concept'].correct)+Number(state.m2.context===FORMATIVE['m2.context'].correct)+Number(ready(state.m2.reflection,10)),total:4};
+    if(id==='m3')return {done:CASES.filter((_,i)=>state.m3.solved[i]).length+Number(state.m3.context===FORMATIVE['m3.context'].correct)+Number(ready(state.m3.reflection,10)),total:8};
+    if(id==='m4')return {done:Number(state.final.practice0===FORMATIVE['final.practice0'].correct)+Number(state.final.practice1===FORMATIVE['final.practice1'].correct)+Object.keys(state.final.answers).length+Number(ready(state.final.reflection,15)),total:11};
+    return {done:0,total:0};
+  }
+  function sectionIntro(n,kicker,title,desc,stage){
+    const id='m'+n,guide=MISSION_STRUCTURE[id],progress=missionActivityProgress(id);
+    return `<header class="mission-header"><div class="eyebrow">Misión ${n} / 4 · ${esc(stage)}</div><div class="title-row"><h1>${esc(title)}</h1><span class="badge purple">55 minutos</span></div><p class="sublead">${esc(desc)}</p></header><div class="lesson-overview"><div><strong>Ruta de aprendizaje</strong><p>${esc(kicker)}</p></div><div class="lesson-steps"><span>Explora</span><span>Practica</span><span>Resuelve</span><span>Reflexiona</span></div></div><section class="lesson-guide" aria-label="Propósito, avance e índice de esta misión"><h2>Propósito de aprendizaje</h2><p>${esc(guide.objective)}</p><p class="lesson-progress-label">Actividades registradas: <strong>${progress.done} de ${progress.total}</strong>. El avance no equivale a dominio matemático.</p><div class="lesson-progress-track" role="progressbar" aria-label="Actividades registradas en la misión ${n}" aria-valuemin="0" aria-valuemax="${progress.total}" aria-valuenow="${progress.done}"><span style="width:${Math.min(100,Math.round(progress.done/progress.total*100))}%"></span></div><nav class="lesson-index" aria-label="Ir a los apartados de la misión ${n}">${guide.steps.map((step,i)=>`<button type="button" class="lesson-jump" data-action="jump-section" data-step="${i}">${i+1}. ${esc(step.label)}</button>`).join('')}</nav></section>`;
+  }
+  function missionFooter(id,requirements){const done=complete(id);const index=META.findIndex(x=>x.id===id);const next=META[index+1];return `<div class="mission-complete" role="status"><h2>${done?'✓ ¡Misión completada!':'Tu misión sigue en marcha'}</h2><div class="details">${done?'Has realizado las actividades previstas. Las respuestas abiertas todavía requieren revisión del docente.':'Para completar: '+esc(requirements)}</div>${done&&next?`<div class="inline-actions"><button class="button" data-action="goto" data-target="${next.id}">Ir a la siguiente misión →</button></div>`:''}${done&&!next?'<p>Ahora puedes descargar tu reporte desde «Mi reporte».</p>':''}</div><div class="footer-nav"><button class="button button-outline" data-action="goto" data-target="home">← Volver a inicio</button><button class="button button-ghost" data-action="goto" data-target="report">Ver mi reporte ↓</button></div>`;}
   function quizItem(q,kind,key,number,label){let selected;
     if(kind==='diag')selected=state.diagnostic.answers[key];
     else if(kind==='final')selected=state.final.answers[key];
@@ -101,7 +212,7 @@
     const isCorrect=done&&selected===q.correct;
     const lock=(kind==='diag'||kind==='final')&&done;
     const message=kind==='diag'?null:(done?(isCorrect?'Correcto. '+q.reason:(kind==='final'?'Esta respuesta no es correcta. '+q.reason:'Revisa tu respuesta. '+(q.hint || 'Usa los ejemplos y vuelve a intentarlo.'))):null);
-    return `<section class="panel" aria-label="${esc(label)} ${number}"><div class="panel-kicker">${esc(label)} ${number}</div><h3>${esc(q.q)}</h3><div class="choice-list">${q.options.map((opt,i)=>`<button type="button" class="choice ${done&&kind==='final'&&(i===q.correct?'correct':i===selected?'incorrect':'')}${kind==='form'&&isCorrect&&i===selected?' correct':''}" data-action="quiz" data-kind="${kind}" data-key="${esc(key)}" data-choice="${i}" aria-pressed="${done&&selected===i}" ${lock||kind==='form'&&isCorrect?'disabled':''}><span class="marker">${'ABCD'[i]}</span><span>${esc(opt)}</span></button>`).join('')}</div>${message?`<div class="feedback ${isCorrect?'good':'wrong'}" role="status">${esc(message)}</div>`:''}${kind==='diag'&&done?'<p class="tiny muted">Respuesta diagnóstica guardada. No tiene calificación.</p>':''}</section>`;
+    return `<section class="panel" aria-label="${esc(label)} ${number}"><div class="panel-kicker">${esc(label)} ${number}</div><h2>${esc(q.q)}</h2><div class="choice-list">${q.options.map((opt,i)=>`<button type="button" class="choice ${done&&kind==='final'&&(i===q.correct?'correct':i===selected?'incorrect':'')}${kind==='form'&&isCorrect&&i===selected?' correct':''}" data-action="quiz" data-kind="${kind}" data-key="${esc(key)}" data-choice="${i}" aria-pressed="${done&&selected===i}" ${lock||kind==='form'&&isCorrect?'disabled':''}><span class="marker">${'ABCD'[i]}</span><span>${esc(opt)}</span></button>`).join('')}</div>${message?`<div class="feedback ${isCorrect?'good':'wrong'}" role="status">${esc(message)}</div>`:''}${kind==='diag'&&done?'<p class="tiny muted">Respuesta diagnóstica guardada. No tiene calificación.</p>':''}</section>`;
   }
   function reflection(module,title,prompt,min=10){return `<section class="panel"><div class="panel-kicker">Reflexiona · 5 minutos</div><h2>${esc(title)}</h2><p>${esc(prompt)}</p><div class="callout"><strong>Guía para explicar tu respuesta</strong><ol>${REFLECTION_GUIDES[module].map(item=>`<li>${esc(item)}</li>`).join('')}</ol><p>Escribe el procedimiento con tus palabras. La aplicación no puede verificar si tu explicación es matemáticamente correcta.</p></div><label class="sr-only" for="reflect-${module}">Escribe tu reflexión</label><textarea id="reflect-${module}" class="textarea" data-reflection="${module}" maxlength="1500" placeholder="Escribe con tus propias palabras…">${esc(module==='m4'?state.final.reflection:state[module].reflection)}</textarea><p class="tiny muted">Se guarda en este navegador. Mínimo ${min} caracteres para guardar. La longitud no acredita aprendizaje: el docente revisará las cuatro explicaciones con una rúbrica.</p><p class="tiny" id="reflect-status-${module}">${((module==='m4'?state.final.reflection:state[module].reflection).trim().length>=min)?'✓ Texto guardado · pendiente de revisión docente':'Pendiente de escribir'}</p><button type="button" class="button button-outline" data-action="save-reflection">Guardar reflexión y revisar avance →</button></section>`;}
   function renderHome(){return `<section class="hero"><div class="eyebrow">Misión digital · Matemáticas de sexto grado</div><h1>Exploradores<br>de números</h1><p>Cuatro misiones para descubrir múltiplos, divisores y pistas de divisibilidad. Aprende a tu ritmo, practica y demuestra cómo piensas.</p><div class="hero-meta"><span>4 misiones · 55 min cada una</span><span>Retos con pistas</span><span>Sin crear cuentas</span></div><button class="button button-gold" data-action="goto" data-target="${configured()?'m1':'profile'}">${configured()?'Continuar expedición →':'Comenzar mi expedición →'}</button></section>
@@ -109,7 +220,7 @@
   function renderProfile(){return `<div class="eyebrow">Antes de empezar</div><h1>Prepara tu expedición</h1><p class="sublead">Solo necesitamos tu grupo y un código de trabajo. No escribas tu nombre, apellidos, teléfono ni dirección.</p><div class="panel"><h2>Mi identificación de trabajo</h2><div class="flex-form"><div class="field"><label for="group">Grupo</label><select id="group" class="control"><option value="">Selecciona tu grupo</option><option value="6-1" ${state.profile.group==='6-1'?'selected':''}>6-1</option><option value="6-2" ${state.profile.group==='6-2'?'selected':''}>6-2</option></select></div><div class="field"><label for="code">Código de estudiante (sin nombres)</label><input id="code" class="control" value="${esc(state.profile.code)}" maxlength="20" aria-describedby="codehint"><span id="codehint" class="tiny muted">Puedes conservar el código sugerido o usar uno asignado por el docente.</span></div></div><div class="inline-actions"><button class="button" data-action="save-profile">Guardar y entrar a la Misión 1 →</button><button class="button button-outline" data-action="goto" data-target="home">Volver</button></div><div id="profileError" class="feedback wrong" hidden role="alert"></div></div><div class="callout"><strong>Privacidad</strong>El progreso solo se guarda en este navegador. Cuando termines, descarga el informe y compártelo con el profesor por el medio acordado. Si cambias de equipo, el avance no se transfiere automáticamente.</div>`;}
   function diagnosis(){const finished=DIAG.every((q,i)=>state.diagnostic.answers[i]!==undefined);return `<div class="panel"><div class="panel-kicker">Tu punto de partida · 10 minutos</div><h2>Diagnóstico inicial</h2><p>Responde lo que sabes sin consultar las pistas de la misión. No se asigna nota. Tus primeras respuestas quedan guardadas para orientar el aprendizaje.</p><div class="mini-progress"><span style="width:${Object.keys(state.diagnostic.answers).length/6*100}%"></span></div><p class="tiny muted">${Object.keys(state.diagnostic.answers).length} de 6 respuestas registradas</p></div>${DIAG.map((q,i)=>quizItem(q,'diag',String(i),i+1,'Diagnóstico')).join('')}${finished?`<div class="callout green"><strong>Diagnóstico completado</strong>Ya puedes continuar. El docente podrá analizar estos resultados al revisar tu reporte; aquí no se asigna calificación.</div>`:''}`;}
   function numChips(module,max){const curr=state[module].selected;return `<div class="number-grid" role="group" aria-label="Selecciona números de la actividad">${Array.from({length:max},(_,i)=>i+1).map(n=>`<button type="button" class="number-chip" aria-pressed="${curr.includes(n)}" data-action="chip" data-module="${module}" data-number="${n}" ${state[module].solved?'disabled':''}>${n}</button>`).join('')}</div>`;}
-  function renderM1(){const factor=Number(state.m1.factor)||5;return sectionIntro(1,'Diagnóstico 10 · Exploración 12 · Práctica 20 · Problema 8 · Reflexión 5','Descubre los múltiplos','Reconoce patrones numéricos y relaciónalos con multiplicaciones.','Patrones que se repiten')+diagnosis()+`<section class="panel"><div class="panel-kicker">Explora · 12 minutos</div><h2>La máquina de multiplicar</h2><p>Un múltiplo se obtiene al multiplicar un número natural por otro. Prueba diferentes cantidades y observa los resultados.</p><div class="select-row"><label for="factor">Número que se repite:</label><select id="factor" class="control" style="max-width:120px" data-select="factor">${Array.from({length:9},(_,i)=>i+2).map(n=>`<option value="${n}" ${n===factor?'selected':''}>${n}</option>`).join('')}</select></div><div class="factors" id="factor-preview" aria-live="polite">${Array.from({length:8},(_,i)=>`<span class="factor">${factor*(i+1)}</span>`).join('')}</div><p class="tiny muted">Ejemplo: ${factor} × 4 = ${factor*4}. Todos los resultados mostrados son múltiplos de ${factor}.</p></section>
+  function renderM1(){const factor=Number(state.m1.factor)||5;return sectionIntro(1,'Diagnóstico 10 · Exploración 12 · Práctica 20 · Problema 8 · Reflexión 5','Descubre los múltiplos','Reconoce patrones numéricos y relaciónalos con multiplicaciones.','Patrones que se repiten')+diagnosis()+`<section class="panel"><div class="panel-kicker">Explora · 12 minutos</div><h2>La máquina de multiplicar</h2><p>Un múltiplo se obtiene al multiplicar un número natural por otro. Prueba diferentes cantidades y observa los resultados.</p><div class="select-row"><label for="factor">Número que se repite:</label><select id="factor" class="control" style="max-width:120px" data-select="factor">${Array.from({length:9},(_,i)=>i+2).map(n=>`<option value="${n}" ${n===factor?'selected':''}>${n}</option>`).join('')}</select></div><div class="factors" id="factor-preview" aria-live="polite">${Array.from({length:8},(_,i)=>`<span class="factor">${factor*(i+1)}</span>`).join('')}</div><p class="tiny muted" id="factor-explanation">Ejemplo: ${factor} × 4 = ${factor*4}. Todos los resultados mostrados son múltiplos de ${factor}.</p></section>
     <section class="panel"><div class="panel-kicker">Practica · 20 minutos</div><h2>Encuentra los múltiplos de 4</h2><p>Selecciona <strong>todos</strong> los múltiplos positivos de 4, desde 1 hasta 32. Puedes marcar y desmarcar números antes de comprobar.</p>${numChips('m1',32)}<div class="inline-actions"><button class="button" data-action="verify-chips" data-module="m1" ${state.m1.solved?'disabled':''}>Comprobar selección</button><button class="button button-outline" data-action="clear-chips" data-module="m1" ${state.m1.solved?'disabled':''}>Borrar selección</button></div>${alertHTML(state.m1.feedback,state.m1.solved)}</section>${quizItem(FORMATIVE['m1.context'],'form','m1.context',1,'Problema del entorno · 8 min')}${reflection('m1','¿Qué descubriste?','Explica con tus palabras cómo podrías saber si 28 es múltiplo de 4.')}${missionFooter('m1','diagnóstico, lista de múltiplos, problema contextualizado y reflexión.')}`;}
   function batchesFor24(size){const full=Math.floor(24/size),rest=24%size;return `<div class="group-batches" role="img" aria-label="${full} grupos de ${size} fichas y ${rest} fichas sobrantes">${Array.from({length:full},()=>`<div class="batch"><div class="dots">${'<span class="dot"></span>'.repeat(size)}</div></div>`).join('')}${rest?`<div class="batch leftover"><div class="dots">${'<span class="dot"></span>'.repeat(rest)}</div></div>`:''}</div><p class="tiny muted">${full} grupos completos de ${size}${rest?', y sobran '+rest+' fichas.':', sin sobrantes.'}</p>`;}
   function renderM2(){let size=Number(state.m2.groupSize)||6;return sectionIntro(2,'Recordatorio 8 · Exploración 12 · Práctica 20 · Problema 10 · Reflexión 5','El desafío de los divisores','Aprende a reconocer divisores mediante agrupaciones y divisiones exactas.','Repartos y agrupaciones')+`<section class="panel"><div class="panel-kicker">Recuerda · 8 minutos</div><h2>¿Qué es un divisor?</h2><p>Un número es divisor de otro cuando permite una <strong>división exacta</strong>: no sobra ninguna unidad. Por ejemplo, 3 es divisor de 24 porque 24 ÷ 3 = 8.</p><div class="callout purple"><strong>Conexión con la misión anterior</strong>Si 24 es múltiplo de 6, entonces 6 es divisor de 24.</div></section><section class="panel"><div class="panel-kicker">Explora · 12 minutos</div><h2>Reparte 24 fichas</h2><p>Escoge cuántas fichas tendrá cada grupo. Observa si sobran algunas.</p><div class="select-row"><label for="group-size">Fichas por grupo:</label><select id="group-size" class="control" style="max-width:130px" data-select="groupSize">${Array.from({length:12},(_,i)=>i+1).map(n=>`<option value="${n}" ${n===size?'selected':''}>${n}</option>`).join('')}</select></div><div id="batch-preview">${batchesFor24(size)}</div></section>
@@ -119,23 +230,54 @@
   function renderM4(){const count=Object.keys(state.final.answers).length;return sectionIntro(4,'Recuperación 10 · Problemas 25 · Evaluación 15 · Reflexión 5','Gran reto de Montería','Resuelve nuevas situaciones para demostrar que comprendes múltiplos, divisores y criterios de divisibilidad.','Poner a prueba lo aprendido')+`<section class="panel"><div class="panel-kicker">Punto de llegada · 10 minutos</div><h2>Antes de resolver</h2><p>Un múltiplo se obtiene mediante una multiplicación. Un divisor permite una división exacta. Los criterios de divisibilidad son pistas para decidir sin efectuar toda la división.</p><div class="callout"><strong>Evaluación individual</strong>Cada pregunta se registra al primer intento y no puede cambiarse después. Tu resultado cuenta solo las preguntas de opción múltiple; el docente revisará por separado tu explicación escrita.</div><div class="mini-progress"><span style="width:${count/FINAL.length*100}%"></span></div><p class="tiny muted">${count} de ${FINAL.length} respuestas de evaluación guardadas</p></section><div class="panel"><div class="panel-kicker">Resuelve · 25 minutos</div><h2>Dos problemas integradores</h2><p>Antes de la evaluación, resuelve estas situaciones y revisa las pistas cuando las necesites. Puedes corregir tus respuestas.</p></div>${quizItem(FORMATIVE['final.practice0'],'form','final.practice0',1,'Problema de aplicación')}${quizItem(FORMATIVE['final.practice1'],'form','final.practice1',2,'Problema de aplicación')}<div class="panel"><div class="panel-kicker">Evaluación final · 15 minutos</div><h2>Ocho preguntas individuales</h2><p>En esta parte cada respuesta queda registrada al primer intento.</p></div>${FINAL.map((q,i)=>quizItem(q,'final',String(i),i+1,'Desafío final')).join('')}${reflection('m4','Argumenta tu solución','Una escuela tiene 36 fichas para repartir sin sobrantes. Describe dos tamaños posibles de grupo y explica cómo comprobaste tu respuesta.',15)}${complete('m4')?`<section class="panel"><div class="panel-kicker">Resultados orientativos</div><h2>¡Completaste la expedición!</h2><div class="result-header"><div class="score">${score()} / 8</div><p>${score()>=7?'Buen dominio de las preguntas objetivas.':score()>=5?'Vas avanzando. Revisa las explicaciones para seguir mejorando.':'Conviene repasar los ejemplos y practicar algunos conceptos.'}</p></div><p class="tiny muted">Este resultado no reemplaza la valoración docente de procedimientos y argumentación.</p><button class="button" data-action="goto" data-target="report">Descargar mi reporte ↓</button></section>`:''}${missionFooter('m4','dos problemas integradores, ocho respuestas finales y una explicación de al menos 15 caracteres.')}`;}
   function renderReport(){const done=complete('m4');const count=Object.keys(state.final.answers).length;return `<div class="eyebrow">Evidencia de aprendizaje</div><div class="title-row"><h1>Mi reporte</h1><span class="badge gold">Descarga individual</span></div><p class="sublead">Guarda un archivo con tu progreso y compártelo con el docente por el medio acordado. No necesitas crear una cuenta.</p><div class="data-grid"><div class="stat"><strong>${esc(state.profile.group||'—')}</strong><span>Grupo</span></div><div class="stat"><strong>${completedCount()} / 4</strong><span>Misiones con actividades realizadas</span></div><div class="stat"><strong>${count} / 8</strong><span>Respuestas finales entregadas</span></div></div><div class="panel"><h2>Resumen de aprendizaje</h2><p><strong>Código de trabajo:</strong> ${esc(state.profile.code)}</p><p><strong>Diagnóstico:</strong> ${Object.keys(state.diagnostic.answers).length} de 6 respuestas registradas, sin nota.</p><p><strong>Evaluación final:</strong> ${done?`<strong>${score()} de 8 respuestas correctas</strong>`:`${count} de 8 respondidas. Sigue trabajando para completar el informe.`}</p><p><strong>Reflexión final:</strong> ${state.final.reflection.trim()?'Texto registrado; pendiente de valoración docente.':'Pendiente.'}</p><p><strong>Reflexiones:</strong> ${[state.m1.reflection,state.m2.reflection,state.m3.reflection,state.final.reflection].map((v,i)=>'Misión '+(i+1)+': '+reflectionStatus(v)).join(' · ')}</p><div class="callout green"><strong>Datos y privacidad</strong>El reporte se genera directamente en este dispositivo. No se transmiten respuestas automáticamente. Si compartes el computador, descarga tu informe y consulta con el docente antes de borrar el progreso.</div><div class="report-actions"><button class="button" data-action="download-text">↓ Descargar informe .txt</button><button class="button button-purple" data-action="download-csv">↓ Descargar datos .csv</button><button class="button button-outline" data-action="print">Imprimir / guardar como PDF</button></div><p class="tiny muted">El archivo CSV contiene una fila que puede integrarse con otros resultados. Las reflexiones se conservan en ambos archivos.</p></div>${RUBRIC_HTML}<div class="panel"><h2>Revisión de tu evaluación</h2>${count?`<div class="review">${FINAL.map((q,i)=>{const sel=state.final.answers[i];return `<div class="review-item"><strong>${i+1}. ${esc(q.q)}</strong><span>Tu respuesta: ${sel===undefined?'Pendiente':esc(q.options[sel])}</span>${sel!==undefined?`<span>${sel===q.correct?'✓ Correcta':'✗ Por revisar'} · ${esc(q.reason)}</span>`:''}</div>`;}).join('')}</div>`:'<p class="empty">Aún no hay respuestas del desafío final.</p>'}</div><div class="panel"><h2>Administrar este dispositivo</h2><p class="tiny muted">El avance permanece en el navegador actual. Borrar los datos no se puede deshacer.</p><button class="button button-outline" data-action="reset">Borrar mi progreso de este dispositivo</button></div><div class="footer-nav"><button class="button button-outline" data-action="goto" data-target="home">← Volver al inicio</button></div>`;}
   function renderNav(){const node=document.getElementById('missionNav');node.innerHTML=`<button class="nav-item" data-action="goto" data-target="home" ${current==='home'?'aria-current="page"':''}><span class="nav-symbol">⌂</span><span class="nav-copy">Inicio<small>Mapa del recorrido</small></span></button>`+META.map((m,i)=>`<button class="nav-item" data-action="goto" data-target="${m.id}" ${current===m.id?'aria-current="page"':''} ${(i===0||isUnlocked(m.id))?'':'disabled'}><span class="nav-symbol" aria-hidden="true">${complete(m.id)?'✓':isUnlocked(m.id)?m.icon:'·'}</span><span class="nav-copy">${i+1}. ${m.name}<small>${complete(m.id)?'Completada':(i===0||isUnlocked(m.id))?'Disponible':'Bloqueada'}</small></span></button>`).join('');const progress=completionRatio();document.getElementById('sidePercent').textContent=progress+'%';document.getElementById('sideProgressFill').style.width=progress+'%';document.getElementById('sideProgress').setAttribute('aria-valuenow',progress);}
-  function render(){if(!['home','profile','report',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
+  function enhanceMissionStructure(){
+    const guide=MISSION_STRUCTURE[current];if(!guide)return;
+    const view=document.getElementById('view'),panels=[...view.querySelectorAll('.panel')];
+    guide.steps.forEach((step,i)=>{
+      const panel=panels.find(item=>step.heading
+        ? item.querySelector('h2')?.textContent.trim()===step.heading
+        : item.querySelector('.panel-kicker')?.textContent.trim().startsWith(step.kicker));
+      if(panel){panel.id='lesson-step-'+i;const heading=panel.querySelector('h2');if(heading)heading.tabIndex=-1;}
+      else{const button=view.querySelector('[data-action="jump-section"][data-step="'+i+'"]');if(button)button.disabled=true;}
+    });
+  }
+  function render(){if(!['home','profile','report',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();enhanceMissionStructure();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
+  function renderAfterAction(el){
+    const fields=['action','kind','key','choice','module','number','index','criterion'];
+    const identity=fields.filter(k=>el.dataset[k]!==undefined).map(k=>[k,el.dataset[k]]);
+    const panelIndex=[...document.querySelectorAll('#view .panel')].indexOf(el.closest('.panel'));
+    const previousY=window.scrollY;render();
+    const equivalent=[...document.querySelectorAll('#view [data-action]')].find(item=>identity.every(([key,value])=>item.dataset[key]===value));
+    let focusTarget=equivalent&&!equivalent.disabled?equivalent:null;
+    if(!focusTarget){
+      const panel=document.querySelectorAll('#view .panel')[panelIndex];
+      focusTarget=panel?.querySelector('h2,h3')||document.getElementById('main');
+      if(focusTarget!==document.getElementById('main'))focusTarget.tabIndex=-1;
+    }
+    focusTarget.focus({preventScroll:true});window.scrollTo({top:previousY,behavior:'auto'});
+  }
   function goTo(next){if(next==='m1'&&!configured())next='profile';if(META.some(m=>m.id===next)&&!isUnlocked(next)){announce('Completa la misión anterior para desbloquearla.');return;}current=next;history.replaceState(null,'','#'+(next==='home'?'inicio':next));render();window.scrollTo({top:0,behavior:'instant'});document.getElementById('main').focus({preventScroll:true});}
   function sortedEqual(a,b){return a.length===b.length && [...a].sort((x,y)=>x-y).every((v,i)=>v===[...b].sort((x,y)=>x-y)[i]);}
   function handleAction(el){const action=el.dataset.action;
     if(action==='goto'){goTo(el.dataset.target);return;}
+    if(action==='jump-section'){
+      const section=document.getElementById('lesson-step-'+el.dataset.step);
+      const heading=section?.querySelector('h2');
+      if(heading){heading.focus({preventScroll:true});section.scrollIntoView({behavior:'auto',block:'start'});}
+      return;
+    }
     if(action==='save-profile'){const g=document.getElementById('group').value;const code=document.getElementById('code').value.trim().toUpperCase();const error=document.getElementById('profileError');if(!['6-1','6-2'].includes(g)||!/^[-A-Z0-9]{2,20}$/.test(code)){error.hidden=false;error.textContent='Elige tu grupo e introduce un código de 2 a 20 letras, números o guiones, sin nombres.';return;}state.profile={group:g,code};persist();goTo('m1');return;}
     if(action==='quiz'){const {kind,key,choice}=el.dataset;const index=Number(choice);
       if(kind==='diag'){if(state.diagnostic.answers[key]!==undefined)return;state.diagnostic.answers[key]=index;}
       else if(kind==='final'){if(state.final.answers[key]!==undefined)return;state.final.answers[key]=index;announce('Respuesta final registrada.');}
       else {const [mod,field]=key.split('.');if(state[mod][field]===FORMATIVE[key].correct)return;state[mod][field]=index;announce(index===FORMATIVE[key].correct?'¡Correcto!':'Revisa la pista y vuelve a intentarlo.');}
-      persist();render();return;}
-    if(action==='chip'){const {module}=el.dataset;const n=Number(el.dataset.number);if(state[module].solved)return;let xs=state[module].selected;state[module].selected=xs.includes(n)?xs.filter(x=>x!==n):[...xs,n];state[module].feedback='';persist();render();return;}
-    if(action==='clear-chips'){const module=el.dataset.module;if(state[module].solved)return;state[module].selected=[];state[module].feedback='';persist();render();return;}
-    if(action==='verify-chips'){const module=el.dataset.module;if(state[module].solved)return;const correct=module==='m1'?Array.from({length:8},(_,i)=>(i+1)*4):Array.from({length:24},(_,i)=>i+1).filter(x=>24%x===0);const good=sortedEqual(state[module].selected,correct);state[module].solved=good;state[module].feedback=good?(module==='m1'?'¡Bien hecho! Son los ocho múltiplos positivos de 4 entre 1 y 32.':'¡Correcto! Los divisores positivos de 24 son 1, 2, 3, 4, 6, 8, 12 y 24.'):('Todavía hay números por revisar. '+(module==='m1'?'Piensa en 4 × 1, 4 × 2, …, 4 × 8.':'Comprueba cuáles permiten dividir 24 sin residuo.'));persist();render();announce(state[module].feedback);return;}
-    if(action==='criteria-toggle'){const idx=Number(el.dataset.index),k=Number(el.dataset.criterion);if(state.m3.solved[idx])return;const xs=state.m3.selected[idx]||[];state.m3.selected[idx]=xs.includes(k)?xs.filter(v=>v!==k):[...xs,k];state.m3.feedback[idx]='';persist();render();return;}
-    if(action==='criteria-check'){const idx=Number(el.dataset.index);const c=CASES[idx];if(state.m3.solved[idx])return;const good=sortedEqual(state.m3.selected[idx]||[],c.correct);state.m3.solved[idx]=good;state.m3.feedback[idx]=good?'¡Correcto! '+c.why:'Comprueba todas las reglas. Revisa la última cifra y la suma de cifras.';persist();render();announce(state.m3.feedback[idx]);return;}
-    if(action==='save-reflection'){persist();render();announce('Texto guardado. La valoración matemática queda pendiente de revisión docente.');return;}
+      persist();renderAfterAction(el);return;}
+    if(action==='chip'){const {module}=el.dataset;const n=Number(el.dataset.number);if(state[module].solved)return;let xs=state[module].selected;state[module].selected=xs.includes(n)?xs.filter(x=>x!==n):[...xs,n];state[module].feedback='';persist();renderAfterAction(el);return;}
+    if(action==='clear-chips'){const module=el.dataset.module;if(state[module].solved)return;state[module].selected=[];state[module].feedback='';persist();renderAfterAction(el);return;}
+    if(action==='verify-chips'){const module=el.dataset.module;if(state[module].solved)return;const correct=module==='m1'?Array.from({length:8},(_,i)=>(i+1)*4):Array.from({length:24},(_,i)=>i+1).filter(x=>24%x===0);const good=sortedEqual(state[module].selected,correct);state[module].solved=good;state[module].feedback=good?(module==='m1'?'¡Bien hecho! Son los ocho múltiplos positivos de 4 entre 1 y 32.':'¡Correcto! Los divisores positivos de 24 son 1, 2, 3, 4, 6, 8, 12 y 24.'):('Todavía hay números por revisar. '+(module==='m1'?'Piensa en 4 × 1, 4 × 2, …, 4 × 8.':'Comprueba cuáles permiten dividir 24 sin residuo.'));persist();renderAfterAction(el);announce(state[module].feedback);return;}
+    if(action==='criteria-toggle'){const idx=Number(el.dataset.index),k=Number(el.dataset.criterion);if(state.m3.solved[idx])return;const xs=state.m3.selected[idx]||[];state.m3.selected[idx]=xs.includes(k)?xs.filter(v=>v!==k):[...xs,k];state.m3.feedback[idx]='';persist();renderAfterAction(el);return;}
+    if(action==='criteria-check'){const idx=Number(el.dataset.index);const c=CASES[idx];if(state.m3.solved[idx])return;const good=sortedEqual(state.m3.selected[idx]||[],c.correct);state.m3.solved[idx]=good;state.m3.feedback[idx]=good?'¡Correcto! '+c.why:'Comprueba todas las reglas. Revisa la última cifra y la suma de cifras.';persist();renderAfterAction(el);announce(state.m3.feedback[idx]);return;}
+    if(action==='save-reflection'){persist();renderAfterAction(el);announce('Texto guardado. La valoración matemática queda pendiente de revisión docente.');return;}
     if(action==='download-text'){downloadText();return;}
     if(action==='download-csv'){downloadCsv();return;}
     if(action==='print'){window.print();return;}
@@ -149,7 +291,7 @@
   function downloadCsv(){const d=reportData();const headers=['fecha','version','grupo','codigo','diagnostico_respuestas','diagnostico_aciertos','mision_1','mision_2','mision_3','mision_4','final_respuestas','final_aciertos','final_total',...DIAG.map((_,i)=>'diagnostico_p'+(i+1)),...FINAL.map((_,i)=>'final_p'+(i+1)),'reflexion_m1','reflexion_m2','reflexion_m3','justificacion_final','estado_reflexion_m1','estado_reflexion_m2','estado_reflexion_m3','estado_reflexion_m4','rubrica_manual_m1','rubrica_manual_m2','rubrica_manual_m3','rubrica_manual_m4','rubrica_manual_total'];const row=[d.date,d.version,d.group,d.code,d.diagnosticAnswered,d.diagnosticCorrect,d.mission1,d.mission2,d.mission3,d.mission4,d.finalAnswered,d.finalCorrect,d.finalTotal,...d.diagnosticResponses,...d.finalResponses,...d.reflections,...d.reflectionStatuses,'','','','',''];downloadFile(headers.map(csvCell).join(',')+'\r\n'+row.map(csvCell).join(','),filename('csv'),'text/csv;charset=utf-8');}
   document.addEventListener('click',event=>{const btn=event.target.closest('[data-action]');if(btn&&!btn.disabled)handleAction(btn);});
   document.addEventListener('input',event=>{const mod=event.target.dataset.reflection;if(mod){if(mod==='m4')state.final.reflection=event.target.value;else state[mod].reflection=event.target.value;persist();const indicator=document.getElementById('reflect-status-'+mod);if(indicator)indicator.textContent=(event.target.value.trim().length>=(mod==='m4'?15:10))?'✓ Texto guardado · pendiente de revisión docente':'Pendiente de escribir';}});
-  document.addEventListener('change',event=>{const sel=event.target.dataset.select;if(sel==='factor'){state.m1.factor=Number(event.target.value);persist();document.getElementById('factor-preview').innerHTML=Array.from({length:8},(_,i)=>'<span class="factor">'+state.m1.factor*(i+1)+'</span>').join('');}if(sel==='groupSize'){state.m2.groupSize=Number(event.target.value);persist();document.getElementById('batch-preview').innerHTML=batchesFor24(state.m2.groupSize);}});
+  document.addEventListener('change',event=>{const sel=event.target.dataset.select;if(sel==='factor'){state.m1.factor=Number(event.target.value);persist();document.getElementById('factor-preview').innerHTML=Array.from({length:8},(_,i)=>'<span class="factor">'+state.m1.factor*(i+1)+'</span>').join('');const explanation=document.getElementById('factor-explanation');if(explanation)explanation.textContent='Ejemplo: '+state.m1.factor+' × 4 = '+(state.m1.factor*4)+'. Todos los resultados mostrados son múltiplos de '+state.m1.factor+'.';}if(sel==='groupSize'){state.m2.groupSize=Number(event.target.value);persist();document.getElementById('batch-preview').innerHTML=batchesFor24(state.m2.groupSize);}});
   document.getElementById('reportNav').addEventListener('click',()=>goTo('report'));
   document.getElementById('homeBrand').addEventListener('click',e=>{e.preventDefault();goTo('home');});
   window.addEventListener('hashchange',()=>{let h=location.hash.replace('#','');current=h==='inicio'?'home':h||'home';render();});
