@@ -16,3 +16,28 @@
 .lesson-jump{min-height:44px;border:1px solid #bdcfc2;border-radius:11px;background:var(--paper);color:var(--green);font-size:13px;font-weight:700;text-align:left;padding:10px 12px}
 .lesson-jump:hover:not([disabled]){background:#e3eee2}
 .lesson-jump[disabled]{opacity:.55;cursor:not-allowed}
+
+
+/* Representaciones didácticas exactas y adaptables. No hay contenido esencial que dependa solo del color. */
+.number-line-figure,.reparto-figure,.divisibility-figure{margin:17px 0;padding:15px 17px;background:#f5f8f2;border:1px solid #cedbcf;border-radius:15px}
+.number-line-figure figcaption,.reparto-figure figcaption,.divisibility-figure figcaption{display:grid;gap:4px;color:var(--ink);font-size:14px}
+.number-line-figure figcaption span{font-size:13px;color:var(--muted)}
+.number-line-canvas{overflow-x:auto;max-width:100%;margin-top:10px}
+.number-line-canvas svg{width:100%;min-width:740px;height:auto;display:block}
+.number-line-axis{stroke:#24473f;stroke-width:2.5;fill:none;stroke-linecap:round}
+.number-line-tick{stroke:#24473f;stroke-width:2}
+.number-line-jump{stroke:#735a85;stroke-width:3;fill:none;stroke-linecap:round}
+.number-line-label{fill:#1a3534;font-size:19px;font-weight:700}
+.number-line-step{fill:#513c65;font-size:17px;font-weight:700}
+.reparto-figure .group-batches{margin-top:12px}
+.reparto-figure .batch{min-width:53px}
+.batch-label{display:block;font-size:12px;font-weight:700;color:#24473f;margin-bottom:7px}
+.reparto-figure .batch.leftover{border-style:dashed;border-width:2px}
+.reparto-figure .batch.leftover .batch-label{color:#7b302b}
+.reparto-result{font-size:14px;color:var(--ink);margin:12px 0 0}
+.digit-display{display:flex;gap:11px;margin:15px 0}
+.digit-tile{display:grid;place-items:center;width:57px;height:67px;border:2px solid #24473f;border-radius:12px;background:#fff;color:#24473f;font-size:32px;font-weight:800}
+.digit-tile.last-digit{border-style:dashed;background:#e0efdf}
+.criterion-steps{display:grid;gap:9px}
+.criterion-steps p{background:#fff;border:1px solid #d8dcd2;border-radius:10px;padding:10px 12px;margin:0;font-size:14px}
+@media(max-width:760px){.number-line-figure,.reparto-figure,.divisibility-figure{padding:12px}.digit-tile{width:48px;height:58px;font-size:27px}}
