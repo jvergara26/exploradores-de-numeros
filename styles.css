@@ -63,3 +63,22 @@
 
 /* Indicador de foco visible sobre el fondo verde oscuro del encabezado de inicio. */
 .hero :focus-visible{outline-color:#ffdf85;outline-offset:4px}
+
+/* v1.2 · Orientaciones pedagógicas y continuidad del recorrido */
+.progress-clarifier{font-size:11px;color:var(--muted);margin:9px 8px 0;line-height:1.35}
+.report-guide{border-color:#a8c8b2}
+.compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+.compare-example{border:1px solid #adcbb4;background:#eff7ed;border-radius:12px;padding:14px 16px}
+.compare-example strong{display:block;color:var(--green)}
+.compare-example p{font-size:14px;margin:7px 0}
+.compare-warning{border-color:#dec9ab;background:#fff7e7}
+.compare-warning strong{color:#6c4b0d}
+.lesson-continue{border-top:1px solid var(--line);padding-top:12px;margin-top:16px}
+.lesson-continue button{max-width:100%;white-space:normal;text-align:left}
+.optional-challenge details{margin:13px 0;padding:11px 14px;background:#f1f5ed;border-radius:10px}
+.optional-challenge summary{cursor:pointer;font-weight:700}
+.report-instructions{background:#f0f5ee;border:1px solid #b5cdb6;border-radius:12px;padding:13px 17px;margin:16px 0}
+.report-instructions h3{margin:0 0 8px;font-size:16px}
+.report-instructions ol{margin:0;padding-left:20px}
+.report-instructions li{margin:5px 0}
+@media(max-width:760px){.compare-grid{grid-template-columns:1fr}.lesson-continue button{width:100%}}
