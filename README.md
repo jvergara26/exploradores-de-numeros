@@ -9,6 +9,7 @@ Recurso Educativo Digital (RED) interactivo para Matemáticas de grado sexto, el
 
 - **Acceso al recurso:** https://jvergara26.github.io/exploradores-de-numeros/
 - **Contenidos:** múltiplos, divisores y divisibilidad por 2, 3, 5 y 10.
+- **Guía didáctica:** sección independiente en el menú, accesible en [`#guia`](https://jvergara26.github.io/exploradores-de-numeros/#guia), con objetivos, ocho ejemplos resueltos y orientaciones docentes.
 - **Organización:** cuatro misiones progresivas, evaluación formativa y reporte local descargable.
 - **Tecnología:** HTML5, CSS3 y JavaScript; sin cuentas de estudiantes ni servidor de resultados.
 - **Recursos gráficos:** carpeta [evidencias/](evidencias/) (mapa conceptual e infografía en PNG y SVG).

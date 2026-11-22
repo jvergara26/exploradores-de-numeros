@@ -216,7 +216,149 @@
   }
   function reflection(module,title,prompt,min=10){return `<section class="panel"><div class="panel-kicker">Reflexiona · 5 minutos</div><h2>${esc(title)}</h2><p>${esc(prompt)}</p><div class="callout"><strong>Guía para explicar tu respuesta</strong><ol>${REFLECTION_GUIDES[module].map(item=>`<li>${esc(item)}</li>`).join('')}</ol><p>Escribe el procedimiento con tus palabras. La aplicación no puede verificar si tu explicación es matemáticamente correcta.</p></div><label class="reflection-label" for="reflect-${module}">Tu explicación escrita</label><textarea id="reflect-${module}" aria-describedby="reflect-instructions-${module} reflect-status-${module}" class="textarea" data-reflection="${module}" maxlength="1500" placeholder="Escribe con tus propias palabras…">${esc(module==='m4'?state.final.reflection:state[module].reflection)}</textarea><p class="tiny muted" id="reflect-instructions-${module}">Se guarda en este navegador. Mínimo ${min} caracteres para guardar. La longitud no acredita aprendizaje: el docente revisará las cuatro explicaciones con una rúbrica.</p><p class="tiny" id="reflect-status-${module}">${((module==='m4'?state.final.reflection:state[module].reflection).trim().length>=min)?'✓ Texto guardado · pendiente de revisión docente':'Pendiente de escribir'}</p><button type="button" class="button button-outline" data-action="save-reflection">Guardar reflexión y revisar avance →</button></section>`;}
   function renderHome(){return `<section class="hero"><div class="eyebrow">Misión digital · Matemáticas de sexto grado</div><h1>Exploradores<br>de números</h1><p>Cuatro misiones para descubrir múltiplos, divisores y pistas de divisibilidad. Aprende a tu ritmo, practica y demuestra cómo piensas.</p><div class="hero-meta"><span>4 misiones · 55 min cada una</span><span>Retos con pistas</span><span>Sin crear cuentas</span></div><button class="button button-gold" data-action="goto" data-target="${configured()?'m1':'profile'}">${configured()?'Continuar expedición →':'Comenzar mi expedición →'}</button></section>
-    <div class="section-head"><div><h2>Mapa de misiones</h2><p>Completa las actividades para desbloquear la siguiente misión. Este avance no equivale a una calificación.</p></div><span class="badge">${completedCount()} de 4 completadas</span></div><div class="cards">${META.map((m,i)=>`<article class="mission-card"><div class="card-symbol" aria-hidden="true">${m.icon}</div><h3>${i+1}. ${m.name}</h3><p>${['Encuentra regularidades y aprende a construir listas de múltiplos.','Forma grupos iguales, descubre divisores y justifica repartos exactos.','Descubre reglas para decidir si un número se divide entre 2, 3, 5 y 10.','Aplica lo aprendido en situaciones de una feria y del entorno.'][i]}</p><div class="card-foot"><span class="badge ${complete(m.id)?'':'purple'}">${complete(m.id)?'Completada':(m.id==='m1'||isUnlocked(m.id))?'Disponible':'Bloqueada'}</span><button class="button button-small ${isUnlocked(m.id)?'':'button-outline'}" ${(m.id==='m1'||isUnlocked(m.id))?'':'disabled'} data-action="goto" data-target="${m.id}">${complete(m.id)?'Repasar':(m.id==='m1'&&!configured())?'Empezar →':isUnlocked(m.id)?'Entrar →':'🔒'}</button></div></article>`).join('')}</div><div class="panel"><h2>¿Qué aprenderás?</h2><p>Reconocer múltiplos y divisores de números naturales, utilizar los criterios de divisibilidad por 2, 3, 5 y 10, y resolver situaciones de agrupación o reparto sin residuo.</p><div class="callout green"><strong>Recuerda</strong>El diagnóstico inicial no tiene calificación. Las pistas y oportunidades de corregir respuestas son parte del aprendizaje.</div></div><section class="panel report-guide"><div class="panel-kicker">Tu trabajo queda en este equipo</div><h2>¿Dónde encuentro mis avances?</h2><p>En <strong>Mi reporte</strong> puedes consultar las misiones realizadas y descargar tus respuestas. Antes de cambiar de computador, guarda el archivo y entrégalo por el medio indicado por el docente.</p><p class="tiny muted">El porcentaje indica actividades terminadas, no dominio matemático demostrado.</p>${configured()?'<button class="button button-outline" data-action="goto" data-target="report">Consultar y descargar mi reporte ↓</button>':'<p class="tiny muted">Al comenzar la expedición podrás consultar tu reporte.</p>'}</section>`;}
+    <div class="section-head"><div><h2>Mapa de misiones</h2><p>Completa las actividades para desbloquear la siguiente misión. Este avance no equivale a una calificación.</p></div><span class="badge">${completedCount()} de 4 completadas</span></div><div class="cards">${META.map((m,i)=>`<article class="mission-card"><div class="card-symbol" aria-hidden="true">${m.icon}</div><h3>${i+1}. ${m.name}</h3><p>${['Encuentra regularidades y aprende a construir listas de múltiplos.','Forma grupos iguales, descubre divisores y justifica repartos exactos.','Descubre reglas para decidir si un número se divide entre 2, 3, 5 y 10.','Aplica lo aprendido en situaciones de una feria y del entorno.'][i]}</p><div class="card-foot"><span class="badge ${complete(m.id)?'':'purple'}">${complete(m.id)?'Completada':(m.id==='m1'||isUnlocked(m.id))?'Disponible':'Bloqueada'}</span><button class="button button-small ${isUnlocked(m.id)?'':'button-outline'}" ${(m.id==='m1'||isUnlocked(m.id))?'':'disabled'} data-action="goto" data-target="${m.id}">${complete(m.id)?'Repasar':(m.id==='m1'&&!configured())?'Empezar →':isUnlocked(m.id)?'Entrar →':'🔒'}</button></div></article>`).join('')}</div><div class="panel"><h2>¿Qué aprenderás?</h2><p>Reconocer múltiplos y divisores de números naturales, utilizar los criterios de divisibilidad por 2, 3, 5 y 10, y resolver situaciones de agrupación o reparto sin residuo.</p><div class="callout green"><strong>Recuerda</strong>El diagnóstico inicial no tiene calificación. Las pistas y oportunidades de corregir respuestas son parte del aprendizaje.</div></div><section class="panel guide-home-link"><h2>Guía didáctica de consulta</h2><p>Explicaciones y ocho ejemplos resueltos, con recomendaciones para aprender y enseñar los contenidos del RED.</p><button class="button button-outline" data-action="goto" data-target="guide">Abrir la guía didáctica →</button></section><section class="panel report-guide"><div class="panel-kicker">Tu trabajo queda en este equipo</div><h2>¿Dónde encuentro mis avances?</h2><p>En <strong>Mi reporte</strong> puedes consultar las misiones realizadas y descargar tus respuestas. Antes de cambiar de computador, guarda el archivo y entrégalo por el medio indicado por el docente.</p><p class="tiny muted">El porcentaje indica actividades terminadas, no dominio matemático demostrado.</p>${configured()?'<button class="button button-outline" data-action="goto" data-target="report">Consultar y descargar mi reporte ↓</button>':'<p class="tiny muted">Al comenzar la expedición podrás consultar tu reporte.</p>'}</section>`;}
+  function renderGuide(){
+    return `<article class="didactic-guide" aria-labelledby="guide-title">
+      <header class="guide-banner">
+        <div class="eyebrow">Material de consulta · Matemáticas · Grado sexto</div>
+        <h1 id="guide-title">Guía didáctica</h1>
+        <p>Aprende a reconocer múltiplos, divisores y criterios de divisibilidad mediante ejemplos desarrollados y situaciones cercanas a la vida escolar en Montería.</p>
+        <p class="guide-banner-note">Esta sección es independiente de las misiones. Puedes consultarla en cualquier momento; no modifica respuestas ni calificaciones.</p>
+      </header>
+      <nav class="guide-index" aria-label="Índice de la guía didáctica">
+        <h2>Contenido de la guía</h2>
+        <div class="guide-index-links">
+          <button type="button" data-action="guide-section" data-section="purpose">1. Propósito y objetivos</button>
+          <button type="button" data-action="guide-section" data-section="method">2. Cómo aprender</button>
+          <button type="button" data-action="guide-section" data-section="multiples">3. Múltiplos</button>
+          <button type="button" data-action="guide-section" data-section="divisors">4. Divisores</button>
+          <button type="button" data-action="guide-section" data-section="divisibility">5. Divisibilidad</button>
+          <button type="button" data-action="guide-section" data-section="integrated">6. Problemas integradores</button>
+          <button type="button" data-action="guide-section" data-section="evaluation">7. Evaluación y reporte</button>
+          <button type="button" data-action="guide-section" data-section="teacher">8. Orientaciones docentes</button>
+        </div>
+      </nav>
+      <section id="guide-purpose" class="guide-part" aria-labelledby="guide-purpose-title">
+        <h2 id="guide-purpose-title" tabindex="-1">1. Propósito y objetivos de aprendizaje</h2>
+        <p>Identificar múltiplos y divisores de números naturales, reconocer cuándo una división es exacta, aplicar criterios de divisibilidad por 2, 3, 5 y 10 y argumentar cada respuesta mediante operaciones.</p>
+        <div class="guide-info"><strong>Conocimientos previos:</strong> tablas de multiplicar, divisiones y residuos. Ten lápiz y papel para representar agrupaciones o explicar procedimientos.</div>
+        <p>Recorrido: <strong>múltiplos → divisores → divisibilidad → reto integrador</strong>. Cada misión tiene una duración orientativa de 55 minutos y puede desarrollarse en varias sesiones.</p>
+      </section>
+      <section id="guide-method" class="guide-part" aria-labelledby="guide-method-title">
+        <h2 id="guide-method-title" tabindex="-1">2. Cómo aprender con Exploradores de números</h2>
+        <ol class="guide-steps">
+          <li><strong>Observa:</strong> lee las explicaciones y analiza los ejemplos.</li>
+          <li><strong>Explora:</strong> cambia los números y observa sus resultados.</li>
+          <li><strong>Practica:</strong> selecciona respuestas y utiliza las pistas cuando sea necesario.</li>
+          <li><strong>Explica:</strong> escribe el procedimiento matemático con tus palabras.</li>
+          <li><strong>Revisa:</strong> consulta el avance y descarga tu informe al terminar.</li>
+        </ol>
+        <div class="guide-info"><strong>Importante:</strong> las prácticas permiten corregir respuestas. El diagnóstico de seis preguntas no tiene nota; las ocho preguntas finales se registran al primer intento. Terminar una misión no acredita por sí solo dominio matemático.</div>
+      </section>
+      <section id="guide-multiples" class="guide-part" aria-labelledby="guide-multiples-title">
+        <h2 id="guide-multiples-title" tabindex="-1">3. Misión 1: múltiplos</h2>
+        <p>Un <strong>múltiplo</strong> se obtiene al multiplicar un número natural por otro. Algunos múltiplos positivos de 6 son 6, 12, 18, 24, 30 y 36.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 1 · Paquetes de una feria escolar</h3>
+          <p>En una feria de la IE Isabel La Católica se preparan paquetes de 6 lápices. ¿Cuántos lápices hay en 4 paquetes?</p>
+          <p class="guide-equation">6 × 4 = 24</p>
+          <p><strong>Respuesta:</strong> 24 lápices. El número 24 es múltiplo de 6 porque 6 × 4 = 24.</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 2 · Tarjetas para un salón</h3>
+          <p>En un salón se forman 7 equipos y cada equipo recibe 5 tarjetas. ¿Cuántas tarjetas reciben entre todos?</p>
+          <p class="guide-equation">7 × 5 = 35</p>
+          <p><strong>Comprobación:</strong> 5, 10, 15, 20, 25, 30, 35. El 35 pertenece a los múltiplos de 5.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> escribe los primeros cinco múltiplos positivos de 4 y comprueba cada uno con una multiplicación.</p>
+      </section>
+      <section id="guide-divisors" class="guide-part" aria-labelledby="guide-divisors-title">
+        <h2 id="guide-divisors-title" tabindex="-1">4. Misión 2: divisores</h2>
+        <p>Un número es <strong>divisor</strong> de otro cuando permite una división exacta: no sobra ninguna unidad.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 3 · Cuadernos para la institución</h3>
+          <p>Se tienen 36 cuadernos y se forman paquetes de 4: <strong>36 ÷ 4 = 9</strong>, residuo 0. Entonces 4 es divisor de 36.</p>
+          <p><strong>Compara:</strong> 36 ÷ 5 = 7 y sobra 1. El 5 no es divisor de 36.</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 4 · Reparto de 24 fichas</h3>
+          <p>Con 24 fichas se pueden formar tres grupos de 8, porque <strong>24 ÷ 8 = 3</strong>. Si se forman grupos de 7, hay tres grupos y sobran tres fichas: <strong>24 = 7 × 3 + 3</strong>.</p>
+          <p><strong>Conclusión:</strong> 8 es divisor de 24, pero 7 no. Además, 24 es múltiplo de 8 porque 8 × 3 = 24.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> demuestra por qué 6 sí es divisor de 30 y por qué 4 no lo es.</p>
+      </section>
+      <section id="guide-divisibility" class="guide-part" aria-labelledby="guide-divisibility-title">
+        <h2 id="guide-divisibility-title" tabindex="-1">5. Misión 3: criterios de divisibilidad</h2>
+        <div class="guide-table-wrap"><table class="guide-table">
+          <caption>Reglas para los divisores 2, 3, 5 y 10</caption>
+          <thead><tr><th scope="col">Divisor</th><th scope="col">Cómo reconocerlo</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">2</th><td>Termina en 0, 2, 4, 6 u 8.</td></tr>
+            <tr><th scope="row">3</th><td>La suma de sus cifras es múltiplo de 3.</td></tr>
+            <tr><th scope="row">5</th><td>Termina en 0 o 5.</td></tr>
+            <tr><th scope="row">10</th><td>Termina en 0.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 5 · El número 150</h3>
+          <p>Termina en 0, por lo tanto es divisible por 2, 5 y 10. Además, <strong>1 + 5 + 0 = 6</strong>, que es múltiplo de 3.</p>
+          <p><strong>Respuesta:</strong> 150 cumple los cuatro criterios.</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 6 · Tarjetas numeradas</h3>
+          <p>Se utiliza el número 126 en una actividad de Montería. Termina en 6 y <strong>1 + 2 + 6 = 9</strong>.</p>
+          <p><strong>Respuesta:</strong> 126 es divisible por 2 y 3, pero no por 5 ni por 10.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> indica qué criterios cumple 135 y justifica cada elección.</p>
+      </section>
+      <section id="guide-integrated" class="guide-part" aria-labelledby="guide-integrated-title">
+        <h2 id="guide-integrated-title" tabindex="-1">6. Misión 4: problemas integradores</h2>
+        <p>Lee la situación, escoge una operación, comprueba el residuo o el criterio y explica la conclusión.</p>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 7 · Feria de Montería</h3>
+          <p>Se disponen 48 cuadernos. ¿Se pueden distribuir en paquetes de 6 y de 5?</p>
+          <p><strong>Paquetes de 6:</strong> 48 ÷ 6 = 8, exacto. <strong>Paquetes de 5:</strong> 48 = 5 × 9 + 3; sobran 3.</p>
+          <p><strong>Conclusión:</strong> 6 es divisor de 48, pero 5 no. Además, 48 es divisible por 2 y por 3 (4 + 8 = 12).</p>
+        </div>
+        <div class="guide-example">
+          <h3>Ejemplo resuelto 8 · Botellas para una jornada escolar</h3>
+          <p>Hay 60 botellas. <strong>60 ÷ 4 = 15</strong> y <strong>60 ÷ 6 = 10</strong>; ambas divisiones son exactas.</p>
+          <p><strong>Conclusión:</strong> 60 es múltiplo de 4 y de 6. También cumple los criterios de divisibilidad por 2, 3, 5 y 10.</p>
+        </div>
+        <p class="guide-check"><strong>Ahora inténtalo:</strong> propone dos tamaños de paquetes que permitan repartir exactamente 42 fichas y explica por qué.</p>
+      </section>
+      <section id="guide-evaluation" class="guide-part" aria-labelledby="guide-evaluation-title">
+        <h2 id="guide-evaluation-title" tabindex="-1">7. Evaluación y reporte</h2>
+        <div class="guide-table-wrap"><table class="guide-table">
+          <caption>Componentes de evaluación y evidencias</caption>
+          <thead><tr><th scope="col">Componente</th><th scope="col">Para qué sirve</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Diagnóstico: 6 preguntas</th><td>Conocer el punto de partida. Sin calificación; primeras respuestas registradas.</td></tr>
+            <tr><th scope="row">Prácticas formativas</th><td>Aprender con pistas y correcciones hasta comprender.</td></tr>
+            <tr><th scope="row">Evaluación final: 8 preguntas</th><td>Responder una vez y consultar el número de aciertos.</td></tr>
+            <tr><th scope="row">Reflexiones escritas</th><td>Argumentar el procedimiento; valoración manual de corrección, comprobación y claridad (0 a 2 puntos por criterio).</td></tr>
+            <tr><th scope="row">Mi reporte</th><td>Descargar un archivo TXT o CSV o guardar el reporte en PDF mediante impresión.</td></tr>
+          </tbody>
+        </table></div>
+        <div class="guide-info"><strong>Protección de datos:</strong> utiliza un código de trabajo, no escribas nombres ni información personal. El progreso se guarda solo en el navegador actual y no se transmite automáticamente. Descarga el informe antes de cambiar de equipo.</div>
+      </section>
+      <section id="guide-teacher" class="guide-part" aria-labelledby="guide-teacher-title">
+        <h2 id="guide-teacher-title" tabindex="-1">8. Orientaciones para el docente</h2>
+        <p>Dirigido a los grupos 6-1 y 6-2 de la IE Isabel La Católica, para acompañar el aprendizaje de múltiplos, divisores y criterios de divisibilidad.</p>
+        <ol class="guide-steps">
+          <li><strong>Preparación:</strong> verificar equipos y conexión; asignar códigos sin nombres.</li>
+          <li><strong>Inicio:</strong> explicar que el diagnóstico de seis preguntas no tiene nota.</li>
+          <li><strong>Acompañamiento:</strong> solicitar argumentos y operaciones; utilizar fichas o dibujos cuando haya dificultades.</li>
+          <li><strong>Diferenciación:</strong> ofrecer ejemplos con residuo a quienes necesiten apoyo y problemas adicionales a quienes avancen con facilidad.</li>
+          <li><strong>Evaluación:</strong> contrastar los aciertos de las ocho preguntas finales con los procedimientos escritos. Cada reflexión permite un máximo de 6 puntos de revisión manual.</li>
+          <li><strong>Cierre:</strong> comprobar la descarga del reporte antes de salir o borrar progreso en dispositivos compartidos.</li>
+        </ol>
+        <div class="guide-info"><strong>Advertencia pedagógica:</strong> completar las actividades o corregir después de una pista no demuestra automáticamente dominio autónomo de los conceptos.</div>
+      </section>
+      <div class="guide-end"><button class="button button-outline" data-action="goto" data-target="home">← Volver al mapa</button><button class="button button-ghost" data-action="guide-section" data-section="purpose">↑ Inicio de la guía</button></div>
+    </article>`;
+  }
+
   function renderProfile(){return `<div class="eyebrow">Antes de empezar</div><h1>Prepara tu expedición</h1><p class="sublead">Solo necesitamos tu grupo y un código de trabajo. No escribas tu nombre, apellidos, teléfono ni dirección.</p><div class="panel"><h2>Mi identificación de trabajo</h2><div class="flex-form"><div class="field"><label for="group">Grupo</label><select id="group" class="control" aria-describedby="profileError"><option value="">Selecciona tu grupo</option><option value="6-1" ${state.profile.group==='6-1'?'selected':''}>6-1</option><option value="6-2" ${state.profile.group==='6-2'?'selected':''}>6-2</option></select></div><div class="field"><label for="code">Código de estudiante (sin nombres)</label><input id="code" class="control" value="${esc(state.profile.code)}" maxlength="20" aria-describedby="codehint profileError"><span id="codehint" class="tiny muted">Puedes conservar el código sugerido o usar uno asignado por el docente.</span></div></div><div class="inline-actions"><button class="button" data-action="save-profile">Guardar y entrar a la Misión 1 →</button><button class="button button-outline" data-action="goto" data-target="home">Volver</button></div><div id="profileError" class="feedback wrong" hidden role="alert"></div></div><div class="callout"><strong>Privacidad</strong>El progreso solo se guarda en este navegador. Cuando termines, descarga el informe y compártelo con el profesor por el medio acordado. Si cambias de equipo, el avance no se transfiere automáticamente.</div>`;}
   function diagnosis(){const finished=DIAG.every((q,i)=>state.diagnostic.answers[i]!==undefined);return `<div class="panel"><div class="panel-kicker">Tu punto de partida · 10 minutos</div><h2>Diagnóstico inicial</h2><p>Responde lo que sabes sin consultar las pistas de la misión. No se asigna nota. Tus primeras respuestas quedan guardadas para orientar el aprendizaje.</p><div class="mini-progress"><span style="width:${Object.keys(state.diagnostic.answers).length/6*100}%"></span></div><p class="tiny muted">${Object.keys(state.diagnostic.answers).length} de 6 respuestas registradas</p></div>${DIAG.map((q,i)=>quizItem(q,'diag',String(i),i+1,'Diagnóstico')).join('')}${finished?`<div class="callout green"><strong>Diagnóstico completado</strong>Ya puedes continuar. El docente podrá analizar estos resultados al revisar tu reporte; aquí no se asigna calificación.</div>`:''}`;}
   function numChips(module,max){const curr=state[module].selected;return `<div class="number-grid" role="group" aria-label="Selecciona números de la actividad">${Array.from({length:max},(_,i)=>i+1).map(n=>`<button type="button" class="number-chip" aria-pressed="${curr.includes(n)}" data-action="chip" data-module="${module}" data-number="${n}" ${state[module].solved?'disabled':''}>${n}</button>`).join('')}</div>`;}
@@ -250,7 +392,7 @@
   function renderM3(){return sectionIntro(3,'Activación 8 · Criterios 15 · Clasificación 20 · Situación 7 · Reflexión 5','Detectives de la divisibilidad','Usa pistas en las cifras para decidir cuándo una división es exacta.','Pistas numéricas')+`<section class="panel"><div class="panel-kicker">Aprende · 23 minutos</div><h2>Cuatro pistas rápidas</h2><div class="rule-list"><div class="rule"><strong>2</strong><span>Termina en <b>0, 2, 4, 6 u 8</b>.</span></div><div class="rule"><strong>3</strong><span>La <b>suma de sus cifras</b> es múltiplo de 3.</span></div><div class="rule"><strong>5</strong><span>Termina en <b>0 o 5</b>.</span></div><div class="rule"><strong>10</strong><span>Termina en <b>0</b>.</span></div></div><figure class="divisibility-figure"><figcaption><strong>Ejemplo visual: el número 150</strong></figcaption><div class="digit-display" aria-hidden="true"><span class="digit-tile">1</span><span class="digit-tile">5</span><span class="digit-tile last-digit">0</span></div><div class="criterion-steps"><p><strong>Observa la última cifra: 0.</strong> Por terminar en 0, 150 es divisible por <strong>2, 5 y 10</strong>.</p><p><strong>Suma sus cifras:</strong> 1 + 5 + 0 = 6. Como 6 es múltiplo de 3, 150 también es divisible por <strong>3</strong>.</p></div></figure></section><div class="panel"><div class="panel-kicker">Practica · 20 minutos</div><h2>Clasifica seis números</h2><p>Comprueba cada caso. Puedes consultar las reglas anteriores y corregir si te equivocas.</p><p class="tiny muted">Resueltos: ${CASES.filter((c,i)=>state.m3.solved[i]).length} de ${CASES.length}</p></div>${CASES.map((c,i)=>criteriaCase(c,i)).join('')}${quizItem(FORMATIVE['m3.context'],'form','m3.context',1,'Problema del entorno · 7 min')}${reflection('m3','¿Qué criterio utilizaste?','Explica cómo puedes saber si 123 es divisible por 3 sin hacer la división.')}${missionFooter('m3','seis números clasificados, problema contextualizado y reflexión.')}`;}
   function renderM4(){const count=Object.keys(state.final.answers).length;return sectionIntro(4,'Recuperación 10 · Problemas 25 · Evaluación 15 · Reflexión 5','Gran reto de Montería','Resuelve nuevas situaciones para demostrar que comprendes múltiplos, divisores y criterios de divisibilidad.','Poner a prueba lo aprendido')+`<section class="panel"><div class="panel-kicker">Punto de llegada · 10 minutos</div><h2>Antes de resolver</h2><p>Un múltiplo se obtiene mediante una multiplicación. Un divisor permite una división exacta. Los criterios de divisibilidad son pistas para decidir sin efectuar toda la división.</p><div class="callout"><strong>Evaluación individual</strong>Cada pregunta se registra al primer intento y no puede cambiarse después. Tu resultado cuenta solo las preguntas de opción múltiple; el docente revisará por separado tu explicación escrita.</div><div class="mini-progress"><span style="width:${count/FINAL.length*100}%"></span></div><p class="tiny muted">${count} de ${FINAL.length} respuestas de evaluación guardadas</p></section><div class="panel"><div class="panel-kicker">Resuelve · 25 minutos</div><h2>Dos problemas integradores</h2><p>Antes de la evaluación, resuelve estas situaciones y revisa las pistas cuando las necesites. Puedes corregir tus respuestas.</p></div>${quizItem(FORMATIVE['final.practice0'],'form','final.practice0',1,'Problema de aplicación')}${quizItem(FORMATIVE['final.practice1'],'form','final.practice1',2,'Problema de aplicación')}<div class="panel"><div class="panel-kicker">Evaluación final · 15 minutos</div><h2>Ocho preguntas individuales</h2><p>En esta parte cada respuesta queda registrada al primer intento.</p></div>${FINAL.map((q,i)=>quizItem(q,'final',String(i),i+1,'Desafío final')).join('')}${reflection('m4','Argumenta tu solución','Una escuela tiene 36 fichas para repartir sin sobrantes. Describe dos tamaños posibles de grupo y explica cómo comprobaste tu respuesta.',15)}<section class="panel optional-challenge"><div class="panel-kicker">Profundiza a tu ritmo · opcional</div><h2>Desafío adicional sin nota</h2><p>Busca todos los números <strong>mayores que 30 y menores que 60</strong> que sean múltiplos de 4 y de 6 al mismo tiempo. Justifica cada respuesta con dos multiplicaciones.</p><details><summary>Ver una pista para empezar</summary><p>Escribe primero los múltiplos de 4 y luego los de 6 en ese intervalo. Compara las dos listas.</p></details><p class="tiny muted">Este reto no modifica el puntaje, las misiones completadas ni el archivo de resultados. Puedes resolverlo en una hoja suelta.</p></section>${complete('m4')?`<section class="panel"><div class="panel-kicker">Resultados orientativos</div><h2>¡Completaste la expedición!</h2><div class="result-header"><div class="score">${score()} / 8</div><p>${score()>=7?'Buen dominio de las preguntas objetivas.':score()>=5?'Vas avanzando. Revisa las explicaciones para seguir mejorando.':'Conviene repasar los ejemplos y practicar algunos conceptos.'}</p></div><p class="tiny muted">Este resultado no reemplaza la valoración docente de procedimientos y argumentación.</p><button class="button" data-action="goto" data-target="report">Descargar mi reporte ↓</button></section>`:''}${missionFooter('m4','dos problemas integradores, ocho respuestas finales y una explicación de al menos 15 caracteres.')}`;}
   function renderReport(){const done=complete('m4');const count=Object.keys(state.final.answers).length;return `<div class="eyebrow">Evidencia de aprendizaje</div><div class="title-row"><h1>Mi reporte</h1><span class="badge gold">Descarga individual</span></div><p class="sublead">Aquí puedes revisar tus <strong>actividades realizadas</strong> y descargar tus respuestas. Las misiones terminadas no son una calificación ni demuestran por sí solas dominio matemático.</p><div class="data-grid"><div class="stat"><strong>${esc(state.profile.group||'—')}</strong><span>Grupo</span></div><div class="stat"><strong>${completedCount()} / 4</strong><span>Misiones con actividades realizadas</span></div><div class="stat"><strong>${count} / 8</strong><span>Respuestas finales entregadas</span></div></div><div class="panel"><h2>Resumen de aprendizaje</h2><p><strong>Código de trabajo:</strong> ${esc(state.profile.code)}</p><p><strong>Diagnóstico:</strong> ${Object.keys(state.diagnostic.answers).length} de 6 respuestas registradas, sin nota.</p><p><strong>Evaluación final:</strong> ${done?`<strong>${score()} de 8 respuestas correctas</strong>`:`${count} de 8 respondidas. Sigue trabajando para completar el informe.`}</p><p><strong>Reflexión final:</strong> ${state.final.reflection.trim()?'Texto registrado; pendiente de valoración docente.':'Pendiente.'}</p><p><strong>Reflexiones:</strong> ${[state.m1.reflection,state.m2.reflection,state.m3.reflection,state.final.reflection].map((v,i)=>'Misión '+(i+1)+': '+reflectionStatus(v)).join(' · ')}</p><div class="callout green"><strong>Datos y privacidad</strong>El reporte se genera directamente en este dispositivo. No se transmiten respuestas automáticamente. Si compartes el computador, descarga tu informe y consulta con el docente antes de borrar el progreso.</div><div class="report-instructions"><h3>Antes de cerrar o cambiar de equipo</h3><ol><li>Descarga tu informe en TXT o CSV.</li><li>Comprueba que el archivo se guardó en la carpeta Descargas.</li><li>Entrégalo al docente por el medio acordado.</li><li>Si el computador es compartido, consulta al docente antes de borrar el avance.</li></ol></div><div class="report-actions"><button class="button" data-action="download-text">↓ Descargar informe .txt</button><button class="button button-purple" data-action="download-csv">↓ Descargar datos .csv</button><button class="button button-outline" data-action="print">Imprimir / guardar como PDF</button></div><p class="tiny muted">El archivo CSV contiene una fila que puede integrarse con otros resultados. Las reflexiones se conservan en ambos archivos.</p></div>${RUBRIC_HTML}<div class="panel"><h2>Revisión de tu evaluación</h2>${count?`<div class="review">${FINAL.map((q,i)=>{const sel=state.final.answers[i];return `<div class="review-item"><strong>${i+1}. ${esc(q.q)}</strong><span>Tu respuesta: ${sel===undefined?'Pendiente':esc(q.options[sel])}</span>${sel!==undefined?`<span>${sel===q.correct?'✓ Correcta':'✗ Por revisar'} · ${esc(q.reason)}</span>`:''}</div>`;}).join('')}</div>`:'<p class="empty">Aún no hay respuestas del desafío final.</p>'}</div><div class="panel"><h2>Administrar este dispositivo</h2><p class="tiny muted">El avance permanece en el navegador actual. Borrar los datos no se puede deshacer.</p><button class="button button-outline" data-action="reset">Borrar mi progreso de este dispositivo</button></div><div class="footer-nav"><button class="button button-outline" data-action="goto" data-target="home">← Volver al inicio</button></div>`;}
-  function renderNav(){const node=document.getElementById('missionNav');node.innerHTML=`<button class="nav-item" data-action="goto" data-target="home" ${current==='home'?'aria-current="page"':''}><span class="nav-symbol" aria-hidden="true">⌂</span><span class="nav-copy">Inicio<small>Mapa del recorrido</small></span></button>`+META.map((m,i)=>`<button class="nav-item" data-action="goto" data-target="${m.id}" ${current===m.id?'aria-current="page"':''} ${(i===0||isUnlocked(m.id))?'':'disabled'}><span class="nav-symbol" aria-hidden="true">${complete(m.id)?'✓':isUnlocked(m.id)?m.icon:'·'}</span><span class="nav-copy">${i+1}. ${m.name}<small>${complete(m.id)?'Completada':(i===0||isUnlocked(m.id))?'Disponible':'Bloqueada'}</small></span></button>`).join('');const progress=completionRatio();document.getElementById('sidePercent').textContent=progress+'%';document.getElementById('sideProgressFill').style.width=progress+'%';document.getElementById('sideProgress').setAttribute('aria-valuenow',progress);document.getElementById('sideProgress').setAttribute('aria-valuetext',completedCount()+' de 4 misiones terminadas');}
+  function renderNav(){const node=document.getElementById('missionNav');node.innerHTML=`<button class="nav-item" data-action="goto" data-target="home" ${current==='home'?'aria-current="page"':''}><span class="nav-symbol" aria-hidden="true">⌂</span><span class="nav-copy">Inicio<small>Mapa del recorrido</small></span></button>`+META.map((m,i)=>`<button class="nav-item" data-action="goto" data-target="${m.id}" ${current===m.id?'aria-current="page"':''} ${(i===0||isUnlocked(m.id))?'':'disabled'}><span class="nav-symbol" aria-hidden="true">${complete(m.id)?'✓':isUnlocked(m.id)?m.icon:'·'}</span><span class="nav-copy">${i+1}. ${m.name}<small>${complete(m.id)?'Completada':(i===0||isUnlocked(m.id))?'Disponible':'Bloqueada'}</small></span></button>`).join('')+`<button class="nav-item nav-guide" data-action="goto" data-target="guide" ${current==='guide'?'aria-current="page"':''}><span class="nav-symbol" aria-hidden="true">▤</span><span class="nav-copy">Guía didáctica<small>Ejemplos y orientaciones</small></span></button>`;const progress=completionRatio();document.getElementById('sidePercent').textContent=progress+'%';document.getElementById('sideProgressFill').style.width=progress+'%';document.getElementById('sideProgress').setAttribute('aria-valuenow',progress);document.getElementById('sideProgress').setAttribute('aria-valuetext',completedCount()+' de 4 misiones terminadas');}
   function enhanceMissionStructure(){
     const guide=MISSION_STRUCTURE[current];if(!guide)return;
     const view=document.getElementById('view'),panels=[...view.querySelectorAll('.panel')];
@@ -285,7 +427,7 @@
       panel.insertAdjacentHTML('afterbegin','<div class="panel-purpose-tag"><span class="panel-purpose-icon" aria-hidden="true">'+glyph+'</span>'+caption+'</div>');
     });
   }
-  function render(){if(!['home','profile','report',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();enhanceMissionStructure();decorateLearningPanels();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
+  function render(){if(!['home','profile','report','guide',...META.map(m=>m.id)].includes(current))current='home';if(META.some(m=>m.id===current)&&!isUnlocked(current))current='home';renderNav();document.getElementById('view').innerHTML=({home:renderHome,profile:renderProfile,report:renderReport,guide:renderGuide,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4})[current]();enhanceMissionStructure();decorateLearningPanels();document.getElementById('reportNav').disabled=!configured();if(!storageOkay){document.getElementById('view').insertAdjacentHTML('afterbegin','<div class="feedback wrong">Este navegador no permite guardar el avance automáticamente. Descarga tu reporte antes de cerrar.</div>');}}
   function renderAfterAction(el){
     const fields=['action','kind','key','choice','module','number','index','criterion'];
     const identity=fields.filter(k=>el.dataset[k]!==undefined).map(k=>[k,el.dataset[k]]);
@@ -308,7 +450,7 @@
     }
     if(current!==next){
       current=next;
-      history.pushState(null,'','#'+(next==='home'?'inicio':next));
+      history.pushState(null,'','#'+(next==='home'?'inicio':next==='guide'?'guia':next));
       render();
     }
     window.scrollTo({top:0,behavior:'auto'});
@@ -317,13 +459,13 @@
   // Resuelve enlaces directos y entradas del historial con las mismas condiciones de desbloqueo.
   function viewFromUrl(){
     const hash=location.hash.replace(/^#/,'');
-    const requested=!hash||hash==='inicio'?'home':hash;
-    if(!['home','profile','report',...META.map(m=>m.id)].includes(requested))return 'home';
+    const requested=!hash||hash==='inicio'?'home':hash==='guia'?'guide':hash;
+    if(!['home','profile','report','guide',...META.map(m=>m.id)].includes(requested))return 'home';
     if(META.some(m=>m.id===requested)&&!isUnlocked(requested))return 'home';
     return requested;
   }
   function syncViewWithUrl(){
-    const next=viewFromUrl(),canonical='#'+(next==='home'?'inicio':next);
+    const next=viewFromUrl(),canonical='#'+(next==='home'?'inicio':next==='guide'?'guia':next);
     if(location.hash&&location.hash!==canonical)history.replaceState(null,'',canonical);
     // Back/forward can raise popstate and hashchange; one render is enough.
     if(next===current)return;
@@ -333,6 +475,12 @@
   function sortedEqual(a,b){return a.length===b.length && [...a].sort((x,y)=>x-y).every((v,i)=>v===[...b].sort((x,y)=>x-y)[i]);}
   function handleAction(el){const action=el.dataset.action;
     if(action==='goto'){goTo(el.dataset.target);return;}
+    if(action==='guide-section'){
+      const section=document.getElementById('guide-'+el.dataset.section);
+      const heading=section?.querySelector('h2');
+      if(heading){heading.focus({preventScroll:true});section.scrollIntoView({behavior:'auto',block:'start'});}
+      return;
+    }
     if(action==='jump-section'){
       const section=document.getElementById('lesson-step-'+el.dataset.step);
       const heading=section?.querySelector('h2');
@@ -384,7 +532,7 @@
   window.addEventListener('popstate',syncViewWithUrl);
   window.addEventListener('hashchange',syncViewWithUrl);
   persist();current=viewFromUrl();
-  const initialCanonical='#'+(current==='home'?'inicio':current);
+  const initialCanonical='#'+(current==='home'?'inicio':current==='guide'?'guia':current);
   if(location.hash&&location.hash!==initialCanonical)history.replaceState(null,'',initialCanonical);
   render();
   // Instrumentación auxiliar opcional para verificar matemática y completitud en pruebas automatizadas.
