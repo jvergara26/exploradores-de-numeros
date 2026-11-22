@@ -22,7 +22,7 @@ Este documento explica cómo adaptar el RED sin confundir actividades realizadas
 - Hacer una revisión completa de matemáticas, accesibilidad, navegación, descargas y guardado si se adaptan preguntas o grupos.
 
 ## Lista de comprobación para cada copia
-1. Ingresar con un código no identificable y un grupo autorizado.
+1. Ingresar únicamente con un código no identificable, sin seleccionar grupo.
 2. Completar el diagnóstico y comprobar la retroalimentación formativa.
 3. Comprobar desbloqueo secuencial, preguntas finales y reflexiones.
 4. Exportar TXT y CSV; abrir los archivos y revisar contenidos.
@@ -34,3 +34,7 @@ Este documento explica cómo adaptar el RED sin confundir actividades realizadas
 
 ## Denominación de versión y datos existentes
 La **versión final aprobada del rediseño es 1.2**. La etiqueta 1.3 fue una denominación editorial provisional utilizada durante ajustes del recurso y fue retirada. La aplicación admite estructuras locales válidas identificadas como 1.0, 1.1, 1.2 y 1.3 para permitir la continuidad del progreso, sin modificar la clave de almacenamiento.
+
+
+## Identificación y exportación individual
+El formulario de ingreso solo solicita el código del estudiante. El grupo no se solicita ni se incluye en los informes TXT/CSV, ni en el nombre de los archivos. El progreso local válido de versiones anteriores se conserva y el campo antiguo de grupo deja de almacenarse. Los agrupamientos matemáticos de la Misión 2 permanecen intactos.
