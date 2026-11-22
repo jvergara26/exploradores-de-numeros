@@ -1,5 +1,10 @@
 # Exploradores de números
 
+**Versión 1.2 (rediseño técnico-pedagógico).** Se incorporan orientaciones entre apartados, comparación visual de múltiplos y divisores, acceso más claro al reporte, instrucciones para equipos compartidos y un desafío optativo sin calificación. El banco de preguntas, la lógica de desbloqueo y los datos guardados permanecen compatibles con la versión anterior.
+
+[Guía de adaptación y reutilización](GUIA_ADAPTACION_RED.md)
+
+
 Recurso Educativo Digital (RED) interactivo para Matemáticas de grado sexto, elaborado por **John Fernando Vergara Arroyo** (2026), en el contexto de la Especialización en Aplicación de TIC para la Enseñanza (UDES).
 
 - **Acceso al recurso:** https://jvergara26.github.io/exploradores-de-numeros/
