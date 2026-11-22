@@ -82,3 +82,23 @@
 .report-instructions ol{margin:0;padding-left:20px}
 .report-instructions li{margin:5px 0}
 @media(max-width:760px){.compare-grid{grid-template-columns:1fr}.lesson-continue button{width:100%}}
+
+/* Rediseño visual: cada bloque se distingue por fondo, borde, icono y texto.
+   El color no se utiliza como único indicador de función pedagógica. */
+#view .panel--content{background:#E8F3F1;border-left:6px solid #3A8375}
+#view .panel--question{background:#FFF5D9;border-left:6px solid #C79728}
+#view .panel--reflection{background:#FDEDE9;border-left:6px solid #C36D5C}
+#view .panel-purpose-tag{display:inline-flex;align-items:center;gap:9px;margin:0 0 13px;padding:6px 11px;border-radius:9px;font-size:12px;font-weight:800;letter-spacing:.025em;line-height:1.35}
+#view .panel--content>.panel-purpose-tag{background:#D3EAE3;color:#204C43}
+#view .panel--question>.panel-purpose-tag{background:#F5E0AA;color:#674A0E}
+#view .panel--reflection>.panel-purpose-tag{background:#F7D6CE;color:#85392F}
+#view .panel-purpose-icon{display:inline-grid;place-items:center;width:19px;height:19px;border:1px solid currentColor;border-radius:6px;font-weight:900;font-size:13px;flex-shrink:0}
+#view .panel .callout:not(.green){background:#F0E8FA;border-left-color:#735A85;color:#423252}
+#view .panel .callout:not(.green)>strong:first-child::before{content:'✦';display:inline-block;margin-right:7px;color:#735A85}
+#view .feedback.good{background:#E3F2E5;border-color:#91C9A0;color:#24583D}
+#view .feedback.wrong{background:#FDE9E6;border-color:#E4B5AE;color:#7B302B}
+@media (prefers-contrast:more){
+  #view .panel--content{border-left-color:#245D52}
+  #view .panel--question{border-left-color:#8A6112}
+  #view .panel--reflection{border-left-color:#8F3733}
+}
