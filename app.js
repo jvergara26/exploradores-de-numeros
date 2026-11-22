@@ -277,7 +277,36 @@
     }
     focusTarget.focus({preventScroll:true});window.scrollTo({top:previousY,behavior:'auto'});
   }
-  function goTo(next){if(next==='m1'&&!configured())next='profile';if(META.some(m=>m.id===next)&&!isUnlocked(next)){announce('Completa la misión anterior para desbloquearla.');return;}current=next;history.replaceState(null,'','#'+(next==='home'?'inicio':next));render();window.scrollTo({top:0,behavior:'instant'});document.getElementById('main').focus({preventScroll:true});}
+  // Conserva el historial de pantallas y evita entradas duplicadas al pulsar la misma navegación.
+  function goTo(next){
+    if(next==='m1'&&!configured())next='profile';
+    if(META.some(m=>m.id===next)&&!isUnlocked(next)){
+      announce('Completa la misión anterior para desbloquearla.');return;
+    }
+    if(current!==next){
+      current=next;
+      history.pushState(null,'','#'+(next==='home'?'inicio':next));
+      render();
+    }
+    window.scrollTo({top:0,behavior:'auto'});
+    document.getElementById('main').focus({preventScroll:true});
+  }
+  // Resuelve enlaces directos y entradas del historial con las mismas condiciones de desbloqueo.
+  function viewFromUrl(){
+    const hash=location.hash.replace(/^#/,'');
+    const requested=!hash||hash==='inicio'?'home':hash;
+    if(!['home','profile','report',...META.map(m=>m.id)].includes(requested))return 'home';
+    if(META.some(m=>m.id===requested)&&!isUnlocked(requested))return 'home';
+    return requested;
+  }
+  function syncViewWithUrl(){
+    const next=viewFromUrl(),canonical='#'+(next==='home'?'inicio':next);
+    if(location.hash&&location.hash!==canonical)history.replaceState(null,'',canonical);
+    // Back/forward can raise popstate and hashchange; one render is enough.
+    if(next===current)return;
+    current=next;render();window.scrollTo({top:0,behavior:'auto'});
+    document.getElementById('main').focus({preventScroll:true});
+  }
   function sortedEqual(a,b){return a.length===b.length && [...a].sort((x,y)=>x-y).every((v,i)=>v===[...b].sort((x,y)=>x-y)[i]);}
   function handleAction(el){const action=el.dataset.action;
     if(action==='goto'){goTo(el.dataset.target);return;}
@@ -326,8 +355,15 @@
   document.addEventListener('change',event=>{const sel=event.target.dataset.select;if(sel==='factor'){state.m1.factor=Number(event.target.value);persist();document.getElementById('factor-preview').innerHTML=Array.from({length:8},(_,i)=>'<span class="factor">'+state.m1.factor*(i+1)+'</span>').join('');document.getElementById('factor-number-line').innerHTML=multipleNumberLine(state.m1.factor);const explanation=document.getElementById('factor-explanation');if(explanation)explanation.textContent='Ejemplo: '+state.m1.factor+' × 4 = '+(state.m1.factor*4)+'. Todos los resultados mostrados son múltiplos de '+state.m1.factor+'.';}if(sel==='groupSize'){state.m2.groupSize=Number(event.target.value);persist();document.getElementById('batch-preview').innerHTML=batchesFor24(state.m2.groupSize);}});
   document.getElementById('reportNav').addEventListener('click',()=>goTo('report'));
   document.getElementById('homeBrand').addEventListener('click',e=>{e.preventDefault();goTo('home');});
-  window.addEventListener('hashchange',()=>{let h=location.hash.replace('#','');current=h==='inicio'?'home':h||'home';render();window.scrollTo({top:0,behavior:'auto'});document.getElementById('main').focus({preventScroll:true});});
-  persist();const initialHash=location.hash.replace('#','');current=initialHash==='inicio'?'home':initialHash||'home';render();
+  // El salto al contenido no debe sustituir la dirección de la misión actual.
+  const skipLink=document.querySelector('.skip');
+  if(skipLink)skipLink.addEventListener('click',event=>{event.preventDefault();document.getElementById('main').focus();});
+  window.addEventListener('popstate',syncViewWithUrl);
+  window.addEventListener('hashchange',syncViewWithUrl);
+  persist();current=viewFromUrl();
+  const initialCanonical='#'+(current==='home'?'inicio':current);
+  if(location.hash&&location.hash!==initialCanonical)history.replaceState(null,'',initialCanonical);
+  render();
   // Instrumentación auxiliar opcional para verificar matemática y completitud en pruebas automatizadas.
   if(location.search.includes('qa=1'))window.RED_TEST={state,DIAG,FORMATIVE,FINAL,CASES,complete,score,diagnosticScore,sortedEqual};
 })();
