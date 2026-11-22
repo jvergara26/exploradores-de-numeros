@@ -1,4 +1,4 @@
-/* Exploradores de números · prototipo didáctico original · v1.3
+/* Exploradores de números · prototipo didáctico original · v1.2
    © 2026 John Fernando Vergara Arroyo.
    Código funcional original: MIT (archivo LICENSE).
    Textos, preguntas y demás contenidos educativos: CC BY-NC-SA 4.0 (LICENSE-CONTENIDOS.md).
@@ -6,7 +6,7 @@
    Los resultados se guardan únicamente en localStorage del navegador. */
 (() => {
   'use strict';
-  const VERSION = '1.3';
+  const VERSION = '1.2';
   const STORAGE = 'exploradores_numeros_udes_v1';
   const META = [
     {id:'m1',name:'Múltiplos',subtitle:'Misión 1 · Descubrir patrones',icon:'✳',time:'55 minutos'},
@@ -71,7 +71,7 @@
   const INITIAL = () => ({version:VERSION,created:new Date().toISOString(),profile:{group:'',code:'EX-'+Math.random().toString(36).slice(2,8).toUpperCase()},diagnostic:{answers:{}},m1:{selected:[],solved:false,feedback:'',factor:5,context:null,reflection:''},m2:{selected:[],solved:false,feedback:'',groupSize:6,context:null,concept:null,reflection:''},m3:{selected:{},solved:{},feedback:{},context:null,reflection:''},final:{answers:{},practice0:null,practice1:null,reflection:''}});
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const loaded = (()=> {try {return JSON.parse(localStorage.getItem(STORAGE) || 'null');} catch (_e) {return null;}})();
-  let state = (loaded?.version === VERSION || loaded?.version === '1.0') && loaded?.profile && loaded?.diagnostic && loaded?.m1 && loaded?.m2 && loaded?.m3 && loaded?.final ? loaded : INITIAL();
+  let state = (['1.0','1.1','1.2','1.3'].includes(loaded?.version)) && loaded?.profile && loaded?.diagnostic && loaded?.m1 && loaded?.m2 && loaded?.m3 && loaded?.final ? loaded : INITIAL();
   state.version=VERSION;
   let current='home';
   let storageOkay=true;
@@ -415,7 +415,7 @@
           <div><dt>Destinatarios</dt><dd>Estudiantes de Matemáticas de sexto grado, grupos 6-1 y 6-2</dd></div>
           <div><dt>Contenidos</dt><dd>Múltiplos, divisores y criterios de divisibilidad por 2, 3, 5 y 10</dd></div>
           <div><dt>Tecnologías</dt><dd>HTML5, CSS y JavaScript</dd></div>
-          <div><dt>Año y versión</dt><dd>2026 · Versión 1.3</dd></div>
+          <div><dt>Año y versión</dt><dd>2026 · Versión 1.2</dd></div>
         </dl>
         <p class="credits-note">La institución educativa y la Universidad de Santander se indican como contexto académico. Esto no significa que el RED sea una publicación institucional oficial.</p>
       </section>
