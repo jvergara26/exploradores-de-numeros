@@ -60,3 +60,6 @@
 .option-selection{display:inline-flex;align-items:center;min-height:24px;margin-left:auto;padding:2px 8px;border-radius:7px;background:#e0efdf;color:#24473f;font-size:12px;font-weight:700}
 .reflection-label{display:block;margin:12px 0 7px;font-weight:700;color:var(--ink)}
 .control[aria-invalid="true"],.textarea[aria-invalid="true"]{border-color:#a14341;border-width:2px}
+
+/* Indicador de foco visible sobre el fondo verde oscuro del encabezado de inicio. */
+.hero :focus-visible{outline-color:#ffdf85;outline-offset:4px}
