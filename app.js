@@ -68,18 +68,21 @@
     {q:'Hay 45 mangos para empacar en bolsas de 5. ¿Cuál resultado es correcto?',options:['8 bolsas y sobran 5','9 bolsas sin sobrantes','10 bolsas sin sobrantes','7 bolsas y sobran 10'],correct:1,reason:'45 ÷ 5 = 9, sin residuo.'},
     {q:'Selecciona la única afirmación verdadera.',options:['6 es múltiplo de 18','7 es divisor de 18','18 es múltiplo de 6','10 es divisor de 25'],correct:2,reason:'18 = 6 × 3; por eso 18 es múltiplo de 6 y 6 es divisor de 18.'}
   ];
-  const INITIAL = () => ({version:VERSION,created:new Date().toISOString(),profile:{code:'EX-'+Math.random().toString(36).slice(2,8).toUpperCase()},diagnostic:{answers:{}},m1:{selected:[],solved:false,feedback:'',factor:5,context:null,reflection:''},m2:{selected:[],solved:false,feedback:'',groupSize:6,context:null,concept:null,reflection:''},m3:{selected:{},solved:{},feedback:{},context:null,reflection:''},final:{answers:{},practice0:null,practice1:null,reflection:''}});
+  const INITIAL = () => ({version:VERSION,created:new Date().toISOString(),profile:{code:'EX-'+Math.random().toString(36).slice(2,8).toUpperCase()},profileConfirmed:false,diagnostic:{answers:{}},m1:{selected:[],solved:false,feedback:'',factor:5,context:null,reflection:''},m2:{selected:[],solved:false,feedback:'',groupSize:6,context:null,concept:null,reflection:''},m3:{selected:{},solved:{},feedback:{},context:null,reflection:''},final:{answers:{},practice0:null,practice1:null,reflection:''}});
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const loaded = (()=> {try {return JSON.parse(localStorage.getItem(STORAGE) || 'null');} catch (_e) {return null;}})();
   let state = (['1.0','1.1','1.2','1.3'].includes(loaded?.version)) && loaded?.profile && loaded?.diagnostic && loaded?.m1 && loaded?.m2 && loaded?.m3 && loaded?.final ? loaded : INITIAL();
   state.version=VERSION;
+  // En estados anteriores, haber seleccionado un grupo señalaba un registro confirmado.
+  // Ahora se conserva esa confirmación sin volver a recopilar el grupo.
+  if(typeof state.profileConfirmed!=='boolean')state.profileConfirmed=Boolean(['6-1','6-2'].includes(loaded?.profile?.group)&&loaded?.profile?.code?.trim());
   // Se conserva el código y las respuestas de estudiantes anteriores, pero no se solicita ni almacena el grupo.
   state.profile={code:typeof state.profile.code==='string'?state.profile.code:''};
   let current='home';
   let storageOkay=true;
   function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(state));storageOkay=true;}catch(_e){storageOkay=false;} }
   function announce(s){const node=document.getElementById('live');node.textContent='';setTimeout(()=>{node.textContent=s;},30);}
-  const configured=()=> Boolean(state.profile.code && state.profile.code.trim());
+  const configured=()=> Boolean(state.profileConfirmed && state.profile.code && state.profile.code.trim());
   const complete = id => {
     if(id==='m1')return DIAG.every((q,i)=>state.diagnostic.answers[i]!==undefined) && state.m1.solved && state.m1.context===FORMATIVE['m1.context'].correct && state.m1.reflection.trim().length>=10;
     if(id==='m2')return state.m2.solved && state.m2.context===FORMATIVE['m2.context'].correct && state.m2.concept===FORMATIVE['m2.concept'].correct && state.m2.reflection.trim().length>=10;
@@ -587,7 +590,7 @@
         error.hidden=false;error.textContent='Introduce un código de 2 a 20 letras, números o guiones, sin nombres.';
         codeField.focus();return;
       }
-      error.hidden=true;state.profile={code};persist();goTo('m1');return;
+      error.hidden=true;state.profile={code};state.profileConfirmed=true;persist();goTo('m1');return;
     }
     if(action==='quiz'){const {kind,key,choice}=el.dataset;const index=Number(choice);
       if(kind==='diag'){if(state.diagnostic.answers[key]!==undefined)return;state.diagnostic.answers[key]=index;announce('Respuesta diagnóstica registrada. No tiene calificación.');}
